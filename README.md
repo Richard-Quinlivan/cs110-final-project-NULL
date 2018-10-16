@@ -12,7 +12,7 @@ Example:
 [link to demo presentation slides](#)
 
 ### Team: NULL
-#### Team Names
+#### Cindy Guo, Clare Iriarte, Richard Quinlivan
 
 ***
 
