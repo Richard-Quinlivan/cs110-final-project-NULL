@@ -3,9 +3,9 @@
     * Github URL
     * Project Demo Presentation as Google Slide URL
 Example:
-# Project Title
+# Galaxy Shooter
 ## CS 110 Final Project
-### Semester, Year
+### Fall 2018
 
 [https://github.com/<repo>](#)
 
@@ -21,14 +21,14 @@ Our project is a galaxy shooter type of game. One player is controlling a ship t
 
 ***    
 
-## User Interface Design
+## User Interface Design - TBD
 * A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program.
     * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
     * You should also have a screenshot of your final GUI
 
 ***        
 
-## Program Design
+## Program Design - TBD
 * You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python.
     * For each additional module you should include
         * url for the module documentation
@@ -55,18 +55,18 @@ Front-end lead conducted significant research on using pygame to create visual a
 
 The back end specialist helped with the “Model” portion of BLOCKBUSTERS by writing the major classes that would be used in the main game, as well as implementing major pygame functionality into each of them. He also made headway in major game mechanics such as the basic paddle movement and advanced functionality such as the screen-wrap function for the paddle as it approached the ends of the screen. He collaborated with the Front End Specialist in the implementation of the classes into our Controller file, as well as develop our high-score database.
 
-## Testing
+## Testing - TBD
 * Describe your testing strategy for your project.
     * Example
 
-### Menu Testing
+### Menu Testing - TBD
 
 First, we run Controller()  and ensure the main menu opens normally, the musical score begins playing and that hovering the mouse over each button changes the color to the “highlighted” shade. Next, we click the Instructions button to ensure the INSTRUCTIONS menu opens, and the buttons are highlighted when hovered over as well. We also check to see if the music playback continues and that the sound effect is played when the button is pressed.
 
 We then press the MAIN MENU button and return, checking that the same functionality with button hover, music and sound effects as before are present. Afterwards, we test that both of the QUIT buttons on the Main Menu and Instructions Menu properly close the game.We then test the PLAY buttons on the Instructions and Main Menu pages to make sure that the Game screen opens properly both times. We then move
 
 
-### Game Testing
+### Game Testing - TBD
 
 When the Game screen boots up , we test if spacebar starts the game and launches the ball, so we test to see if this remains true. From there, in the middle of play, we will test the single-press and holding of both the left and right arrow buttons to make sure movement works in single presses and continues to move when a key is held. We then move all the way to the left and right of the screen to see if it causes the paddle to appear on the other side - our wrap-around function.
 
