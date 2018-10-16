@@ -17,7 +17,7 @@ Example:
 ***
 
 ## Project Description
-Give an overview of your project
+Our project is a galaxy shooter type of game. One player is controlling a ship that will start out shooting 1 beam at enemies while enemies fire back. The player must avoid the enemy shots. As time passes, enemies' difficulty level goes up and will shoot in more diverse patterns.
 
 ***    
 
