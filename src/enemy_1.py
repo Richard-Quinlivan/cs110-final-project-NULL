@@ -2,7 +2,7 @@ import pygame
 from enemybullet import enemyBullet
 import math
 
-class enemy(pygame.sprite.Sprite):
+class enemy_1(pygame.sprite.Sprite):
 	def __init__(self, position, strength, speed, health):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = pygame.image.load("bullet.png")
@@ -13,15 +13,11 @@ class enemy(pygame.sprite.Sprite):
 		self.speed = speed
 		self.health = health
 
-	def move(self):
-		yCoord = 0
-		while self.health > 0:
-			self.rect.y = sin(yCoord)
-			ycoord += 10
+	def update(self):
+		self.rect.x += speed
+
+	def fire(self):
+		enemybullet.enemyBullet(self.position, self.speed * 2, "reg")
 
 	def take_damage(self):
 		self.health += -1
-
-	def die(self):
-		if self.health == 0:
-			#make disapear

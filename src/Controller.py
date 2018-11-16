@@ -2,7 +2,9 @@ import sys
 import pygame
 import random
 from src import Hero
-from src import enemy
+from src import enemy_1
+from src import enemy_2
+from src import enemy_3
 from src import heroBullet
 from src import enemyBullet
 
@@ -75,17 +77,17 @@ class Controller:
                         self.hero.move(right)
                     elif(event.key == pygame.K_SPACE):
                         self.hero.fight() #NOT WRITTEN YET
-                        
-            
+
+
             #check for collisions with enemy
             fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy, True)
             if fights:
                 for enemy in fights:
                     if self.hero.fight(enemy): #if returns true? or false?
-                        self.enemy.take_damage() 
+                        self.enemy.take_damage()
                     else:
                         pass #if hero bullet misses, do nothing
-        
+
             #check for collisions with hero
             collide = pygame.sprite.spritecollide(self.enemyBullet, self.Hero, True)
             if collide:

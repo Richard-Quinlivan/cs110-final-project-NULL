@@ -10,7 +10,4 @@ class heroBullet(pygame.sprite.Sprite):
 		self.rect.centery = position[1]
 
 	def update(self):
-		if (self.direction == "right"):
-			self.rect.centerx += speed
-		# if (self.direction == "left"):
-		# 	self.rect.centerx += speed
+		self.rect.centerx += speed
