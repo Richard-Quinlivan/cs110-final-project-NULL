@@ -1,5 +1,5 @@
 import pygame
-from enemybullet import enemyBullet
+from src import enemyBullet
 import math
 
 class enemy_1(pygame.sprite.Sprite):

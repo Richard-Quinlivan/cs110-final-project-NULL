@@ -1,7 +1,7 @@
 import sys
 import pygame
 import random
-from src import Hero
+from src import hero
 from src import enemy_1
 from src import enemy_2
 from src import enemy_3
@@ -19,17 +19,17 @@ class Controller:
 
         """Load the sprites that we need"""
 
-        self.enemy = pygame.sprite.Group()
+        self.enemy_1 = pygame.sprite.Group()
         num_enemies = random.randrange(1,5)
         for i in range(num_enemies):
             y = random.randrange(80, 400)
-            self.enemy.add(enemy.Enemy((580,y), 1, 2, 5, 'assets/enemy.png' ))
+            self.enemy_1.add(enemy_1.enemy_1((580,y), 1, 2, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
        # self.heroBullet.add(heroBullet.heroBullet(self.hero.x, self.hero.y 'assets/herobullet.png' ))
         self.enemyBullet = pygame.sprite.Group()
       #  self.heroBullet.add(heroBullet.heroBullet(self.enemy.x, self.enemy.y 'assets/enemybullet.png' ))
         self.hero = hero.Hero(self.hero.name, (50,80), "assets/hero.png")
-        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies)+tuple(self.enemybullet)+tuple(self.herobullet))
+        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemybullet)+tuple(self.herobullet))
        # self.state = "START"
         self.state = "GAME"
 
@@ -41,22 +41,22 @@ class Controller:
          #       self.startLoop()
             elif(self.state == "GAMEOVER"):
                 self.gameOver()
-    #def startLoop(self):
-       # while self.state == "START":
-            #name = (input("Please enter a name: "))
-            #press 1 to look at instructions
-          #  for event in pygame.event.get():
-           #         if event.type == pygame.QUIT:
-            #            sys.exit()
-           #         if event.type == pygame.KEYDOWN:
-            #            if(event.key == pygame.K_1):
-            #                self.screen.blit(self.background, (0, 0))
-            #                myfont = pygame.font.SysFont(None, 30)
-            #                message = myfont.render('Move with Up/Down/Left/Right keys. Shoot enemy space ships but be careful, do not let them pass you or lose a life!', False, (0,0,0))
-            #                self.screen.blit(message, (self.width/2,self.height/2))
-            #                pygame.display.flip()
-            #if play button pressed
-            #Self.state = "GAME"
+##    def startLoop(self):
+##        while self.state == "START":
+##            name = (input("Please enter a name: "))
+##            press 1 to look at instructions
+##            for event in pygame.event.get():
+##                    if event.type == pygame.QUIT:
+##                        sys.exit()
+##                    if event.type == pygame.KEYDOWN:
+##                        if(event.key == pygame.K_1):
+##                            self.screen.blit(self.background, (0, 0))
+##                            myfont = pygame.font.SysFont(None, 30)
+##                            message = myfont.render('Move with Up/Down/Left/Right keys. Shoot enemy space ships but be careful, do not let them pass you or lose a life!', False, (0,0,0))
+##                            self.screen.blit(message, (self.width/2,self.height/2))
+##                            pygame.display.flip()
+##            if play button pressed
+##                self.state = "GAME"
 
     def gameLoop(self):
         """This is the Main Loop of the Game"""
@@ -76,30 +76,31 @@ class Controller:
                     elif(event.key == pygame.K_RIGHT):
                         self.hero.move(right)
                     elif(event.key == pygame.K_SPACE):
-                        self.hero.fight() #NOT WRITTEN YET
+                        self.hero.fight() #NOT WRITTEN YET//shoots
 
 
             #check for collisions with enemy
-            fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy, True)
+            fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
             if fights:
-                for enemy in fights:
-                    if self.hero.fight(enemy): #if returns true? or false?
-                        self.enemy.take_damage()
+                for enemy_1 in fights:
+                    if self.hero.fight(enemy_1): #if returns true or false?
+                        self.enemy_1.take_damage()
                     else:
                         pass #if hero bullet misses, do nothing
 
             #check for collisions with hero
             collide = pygame.sprite.spritecollide(self.enemyBullet, self.Hero, True)
             if collide:
-                for enemy in collide:
-                    if self.enemy.hit(hero): #if returns true or false?
+                for enemy_1 in collide:
+                    if self.enemy_1.fire(hero): #?_?
                         self.hero.take_damage()
                     else:
                         pass #if enemy bullet misses, do nothing (if bullet passes the screen)
 
             #redraw the entire screen
-            self.hero.update()
-            self.enemy.update()
+            self.enemy_1.update()
+##            self.enemy_2.update()
+##            self.enemy_3.update()
             self.heroBullet.update()
             self.enemyBullet.update()
             self.screen.blit(self.background, (0, 0))

@@ -21,6 +21,9 @@ class Hero(pygame.sprite.Sprite):
             if (direction.lower() == "right"):
                 self.rect.x += self.speed
         def fight(self, other):
-            #return random.choice([True, Flase])
-            #if (other.strength > self.strength):
-            #fight is being called through controller     
+            if (other.strength > self.strength):
+                return random.choice([True, Flase])
+            
+            #fight is being called through controller
+
+
