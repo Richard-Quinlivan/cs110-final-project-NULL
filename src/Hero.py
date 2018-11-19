@@ -1,6 +1,6 @@
 import pygame
 
-class Hero(pygame.sprite.Sprite):
+class hero(pygame.sprite.Sprite):
         def __init__(self, name, pos, image):
             pygame.sprite.Sprite.__init__(self)
             self.name = name
@@ -10,9 +10,9 @@ class Hero(pygame.sprite.Sprite):
             self.rect.y = pos[1] #don't need if start at origin
             self.strength = 1
             self.speed = 1
-            
+
         def move(self, direction):
-            if (direction.lower() == "down"):   
+            if (direction.lower() == "down"):
                 self.rect.y -= self.speed
             if (direction.lower() == "up"):
                 self.rect.y += self.speed
@@ -23,7 +23,5 @@ class Hero(pygame.sprite.Sprite):
         def fight(self, other):
             if (other.strength > self.strength):
                 return random.choice([True, Flase])
-            
+
             #fight is being called through controller
-
-
