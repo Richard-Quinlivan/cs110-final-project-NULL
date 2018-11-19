@@ -25,9 +25,9 @@ class Controller:
             y = random.randrange(80, 400)
             self.enemy_1.add(enemy_1.enemy_1((580,y), 1, 2, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
-       # self.heroBullet.add(heroBullet.heroBullet(self.hero.x, self.hero.y 'assets/herobullet.png' ))
+        self.heroBullet.add(enemyBullet.enemyBullet((self.enemy.x, self.enemy.y), 3, "reg"))
         self.enemyBullet = pygame.sprite.Group()
-      #  self.heroBullet.add(heroBullet.heroBullet(self.enemy.x, self.enemy.y 'assets/enemybullet.png' ))
+        self.heroBullet.add(heroBullet.heroBullet((self.hero.x, self.hero.y), 2))
         self.hero = hero.Hero(self.hero.name, (50,80), "assets/hero.png")
         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemybullet)+tuple(self.herobullet))
        # self.state = "START"

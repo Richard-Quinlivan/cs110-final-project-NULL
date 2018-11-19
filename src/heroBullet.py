@@ -1,7 +1,7 @@
 import pygame
 
 class heroBullet(pygame.sprite.Sprite):
-	def __init__(self, position, speed, direction):
+	def __init__(self, position, speed):
 		pygame.sprite.Sprite.__init__(self)
 		self.name = name
 		self.image = pygame.image.load("bullet.png")
