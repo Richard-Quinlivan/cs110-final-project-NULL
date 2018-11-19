@@ -2,12 +2,12 @@
     * A cover page containing your group member names, project title, course number, and semester
     * Github URL
     * Project Demo Presentation as Google Slide URL
-Example:
+
 # Galaxy Shooter
-## CS 110 Final Project
+## CS 110 Final Project, Semester 1
 ### Fall 2018
 
-[https://github.com/<repo>](#)
+https://github.com/binghamtonuniversity-cs110/final-project-fall18-null
 
 [link to demo presentation slides](#)
 
@@ -30,9 +30,13 @@ Our project is a galaxy shooter type of game. One player is controlling a ship t
 
 ## Program Design - TBD
 * You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python.
-    * For each additional module you should include
+* For each additional module you should include
         * url for the module documentation
         * a short description of the module
+Addition Libraries/Modules Used:
+-
+
+   
 * Decide upon a class interface for the classes in your project.
     * A simple drawing that shows the class relationships in your code (see the sample Proposal document for an example).
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
