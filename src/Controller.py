@@ -1,7 +1,7 @@
 import sys
 import pygame
 import random
-from src import Hero
+from src import hero
 from src import enemy_1
 from src import enemy_2
 from src import enemy_3
