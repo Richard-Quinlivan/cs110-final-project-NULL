@@ -1,13 +1,13 @@
 import pygame
 
 class heroBullet(pygame.sprite.Sprite):
-	def __init__(self, position, speed):
+	def __init__(self, x, y, speed, img):
 		pygame.sprite.Sprite.__init__(self)
-		self.name = name
-		self.image = pygame.image.load("bullet.png")
+		self.image = self.image = pygame.transform.smoothscale(pygame.image.load(img).convert_alpha(),(30, 30))
 		self.rect = self.image.get_rect()
-		self.rect.centerx = position[0]
-		self.rect.centery = position[1]
+		self.rect.centerx = x
+		self.rect.centery = y
+		self.speed = speed
 
 	def update(self):
-		self.rect.centerx += speed
+		self.rect.centerx += self.speed
