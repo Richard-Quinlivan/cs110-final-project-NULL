@@ -1,19 +1,20 @@
 import pygame
 
 class enemyBullet(pygame.sprite.Sprite):
-    def __init__(self, position, speed, type):
+    def __init__(self, x, y, img, speed, type):
         pygame.sprite.Sprite.__init__(self)
-	self.image = pygame.image.load("bullet.png")
-	self.rect = self.image.get_rect()
-	self.rect.centerx = position[0]
-	self.rect.centery = position[1]
-	self.type = type
+        self.image = pygame.transform.smoothscale(pygame.image.load(img).convert_alpha(),(30, 30))
+        self.rect = self.image.get_rect()
+        self.rect.centerx = x
+        self.rect.centery = y
+        self.type = type
+        self.speed = speed
 
     def update(self):
         if (self.type == "up"):
-	    self.rect.y += -speed
-	if (self.type == "down"):
-            self.rect.y += speed
+            self.rect.y += -self.speed
+        if (self.type == "down"):
+            self.rect.y += self.speed
         if (self.type == "reg"):
             pass
-        self.rect.x += -speed
+        self.rect.x += -self.speed
