@@ -23,13 +23,14 @@ class Controller:
         num_enemies = random.randrange(1,5)
         for i in range(num_enemies):
             y = random.randrange(80, 400)
-            self.enemy_1.add(enemy_1.enemy_1((580,y), 1, 2, 3, 'assets/enemy.png' ))
+            self.enemy_1.add(enemy_1.enemy_1(580, 10, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
-        self.heroBullet.add(enemyBullet.enemyBullet((self.enemy.x, self.enemy.y), 3, "reg"))
+        self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
         self.enemyBullet = pygame.sprite.Group()
-        self.heroBullet.add(heroBullet.heroBullet((self.hero.x, self.hero.y), 2))
-        self.hero = hero.Hero(self.hero.name, (50,80), "assets/hero.png")
-        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemybullet)+tuple(self.herobullet))
+        self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
+        self.hero = pygame.sprite.Group()
+        self.hero.add(hero.hero("phil", 50, 80, "assets/hero.png"))
+        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
        # self.state = "START"
         self.state = "GAME"
 
@@ -68,49 +69,45 @@ class Controller:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_UP):
-                        self.hero.move(up)
+                        self.hero.move("up")
                     elif(event.key == pygame.K_DOWN):
-                        self.hero.move(down)
+                        self.hero.move("down")
                     elif(event.key == pygame.K_LEFT):
-                        self.hero.move(left)
+                        self.hero.move("left")
                     elif(event.key == pygame.K_RIGHT):
-                        self.hero.move(right)
+                        self.hero.move("right")
                     elif(event.key == pygame.K_SPACE):
                         self.hero.fight() #NOT WRITTEN YET//shoots
 
 
             #check for collisions with enemy
-            fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
-            if fights:
-                for enemy_1 in fights:
-                    if self.hero.fight(enemy_1): #if returns true or false?
-                        self.enemy_1.take_damage()
-                    else:
-                        pass #if hero bullet misses, do nothing
+            # fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
+            # if fights:
+            #     for enemy_1 in fights:
+            #         if self.hero.fight(enemy_1): #if returns true or false?
+            #             self.enemy_1.take_damage()
+            #         else:
+            #             pass #if hero bullet misses, do nothing
 
             #check for collisions with hero
-            collide = pygame.sprite.spritecollide(self.enemyBullet, self.Hero, True)
-            if collide:
-                for enemy_1 in collide:
-                    if self.enemy_1.fire(hero): #?_?
-                        self.hero.take_damage()
-                    else:
-                        pass #if enemy bullet misses, do nothing (if bullet passes the screen)
+            # collide = pygame.sprite.spritecollide(self.enemyBullet, self.hero, True)
+            # if collide:
+            #     for enemy_1 in collide:
+            #         if self.enemy_1.fire(hero): #?_?
+            #             self.hero.take_damage()
+            #         else:
+            #             pass #if enemy bullet misses, do nothing (if bullet passes the screen)
 
             #redraw the entire screen
-            self.enemy_1.update()
-##            self.enemy_2.update()
-##            self.enemy_3.update()
-            self.heroBullet.update()
-            self.enemyBullet.update()
+            self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
-            if(self.hero.health == 0):
-                self.state = "GAMEOVER"
+            # if(self.hero.health == 0):
+            #     self.state = "GAMEOVER"
 
             #display the text
             font = pygame.font.SysFont(None, 30, True)
-            hero_sur = font.render('Remaining Health:'+ str(self.hero.health), False, (250,0,0))
-            self.screen.blit(hero_sur, (10,50))
+            # hero_sur = font.render('Remaining Health:'+ str(self.hero.health), False, (250,0,0))
+            # self.screen.blit(hero_sur, (10,50))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
