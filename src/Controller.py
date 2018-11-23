@@ -31,39 +31,56 @@ class Controller:
         self.hero = pygame.sprite.Group()
         self.hero.add(hero.hero("phil", 50, 80, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-       # self.state = "START"
-        self.state = "GAME"
+        self.state = "START"
+       # self.state = "GAME"
 
     def mainLoop(self):
         while True:
-            if(self.state == "GAME"):
+            if(self.state == "START"):
+                self.startLoop()
+            elif(self.state == "GAME"):
                 self.gameLoop()
-        #    elif(self.state == "START"):
-         #       self.startLoop()
             elif(self.state == "GAMEOVER"):
                 self.gameOver()
-##    def startLoop(self):
-##        while self.state == "START":
-##            name = (input("Please enter a name: "))
-##            press 1 to look at instructions
-##            for event in pygame.event.get():
-##                    if event.type == pygame.QUIT:
-##                        sys.exit()
-##                    if event.type == pygame.KEYDOWN:
-##                        if(event.key == pygame.K_1):
-##                            self.screen.blit(self.background, (0, 0))
-##                            myfont = pygame.font.SysFont(None, 30)
-##                            message = myfont.render('Move with Up/Down/Left/Right keys. Shoot enemy space ships but be careful, do not let them pass you or lose a life!', False, (0,0,0))
-##                            self.screen.blit(message, (self.width/2,self.height/2))
-##                            pygame.display.flip()
-##            if play button pressed
-##                self.state = "GAME"
-
+    def startLoop(self):
+        pygame.key.set_repeat(1,50)
+        while self.state == "START":
+            self.screen.fill((250, 250, 250))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+            font = pygame.font.SysFont("arial", 40, True)
+            title = font.render('Welcome to Galaxy Shooter!', True, (0,0,0))
+            self.screen.blit(title, (100,100))
+            font = pygame.font.SysFont("arial", 20, True)
+            instruct1 = font.render('Move with the UP/DOWN/LEFT/RIGHT keys', True, (0,0,0))
+            instruct2 = font.render('Shoot with SPACE', True, (0,0,0))
+            instruct3 = font.render('Good Luck!~', True, (0,0,0))
+            self.screen.blit(instruct1, (150,165))
+            self.screen.blit(instruct2, (230,205))
+            self.screen.blit(instruct3, (255,245))
+            pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #instruct
+            pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #plat
+            font = pygame.font.SysFont("arial", 25, True)
+            start_button = font.render('PLAY', True, (0,0,0))
+            self.screen.blit(start_button, (490,410))
+            font = pygame.font.SysFont("arial", 25, True)
+            start_button = font.render('QUIT', True, (0,0,0))
+            self.screen.blit(start_button, (100,410))
+            mouse = pygame.mouse.get_pos()
+            click = pygame.mouse.get_pressed() #tuple postition
+            #print(click)
+            if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
+                self.state = "GAME"
+            if click[0] == 1 and mouse[0] in range(50,200) and mouse[1] in range(400,450):
+                sys.exit()
+            pygame.display.flip()
+                    
     def gameLoop(self):
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
         while self.state == "GAME":
-            self.background.fill((0, 0, 0)) #black
+            self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
