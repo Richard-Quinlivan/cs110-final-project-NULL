@@ -24,6 +24,7 @@ class hero(pygame.sprite.Sprite):
 	def fight(self, other):
 		if (other.strength > self.strength):
 			return random.choice([True, Flase])
+			
 	def take_damage(self):
 		self.health += -1
 

@@ -20,9 +20,9 @@ class enemy_3(pygame.sprite.Sprite):
 		self.ycoord += 10
 
 	def fire(self):
-		enemybullet.enemyBullet(self.position, self.speed * 2, "up")
-		enemybullet.enemyBullet(self.position, self.speed * 2, "reg")
-		enemybullet.enemyBullet(self.position, self.speed * 2, "down")
+		enemyBullet.enemyBullet(self.position, self.speed * 2, "up")
+		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
+		enemyBullet.enemyBullet(self.position, self.speed * 2, "down")
 
 
 	def take_damage(self):

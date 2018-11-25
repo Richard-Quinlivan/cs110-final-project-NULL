@@ -75,7 +75,7 @@ class Controller:
             if click[0] == 1 and mouse[0] in range(50,200) and mouse[1] in range(400,450):
                 sys.exit()
             pygame.display.flip()
-                    
+
     def gameLoop(self):
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)

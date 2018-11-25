@@ -20,7 +20,7 @@ class enemy_2(pygame.sprite.Sprite):
 		self.ycoord += 10
 
 	def fire(self):
-		enemybullet.enemyBullet(self.position, self.speed * 2, "reg")
+		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
 
 
 

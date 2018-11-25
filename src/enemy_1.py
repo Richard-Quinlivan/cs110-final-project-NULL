@@ -12,10 +12,20 @@ class enemy_1(pygame.sprite.Sprite):
 		self.speed = speed
 
 	def update(self):
+		"""
+		Moves the enemy to the left as the screen updates
+		Args: None
+		Return: self.rect.x
+		"""
 		self.rect.x += self.speed
 
 	def fire(self):
-		enemybullet.enemyBullet(self.position, self.speed * 2, "reg")
+		"""
+		Has the emeny ship fire a enemyBullet
+		Args: None
+		Return: enemyBullet
+		"""
+		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
 
 	def take_damage(self):
 		self.health += -1
