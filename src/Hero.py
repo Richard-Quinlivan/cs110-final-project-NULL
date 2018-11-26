@@ -13,6 +13,11 @@ class hero(pygame.sprite.Sprite):
 		self.speed = 1
 
 	def move(self, direction):
+		"""
+		allows the hero to move when keys are pressed
+		args: direction
+		return: self.rect.x, self.rect.y
+		"""
 		if (direction.lower() == "down"):
 			self.rect.y -= self.speed
 			if (direction.lower() == "up"):
@@ -21,11 +26,21 @@ class hero(pygame.sprite.Sprite):
 				self.rect.x -= self.speed
 			if (direction.lower() == "right"):
 				self.rect.x += self.speed
-	def fight(self, other):
-		if (other.strength > self.strength):
-			return random.choice([True, Flase])
-			
+	# def fire(self):
+	# 	"""
+	# 	creates a heroBullet object
+	# 	args: none
+	# 	return: heroBullet
+	# 	"""
+	# 	heroBullet.heroBullet(self.x, self.y, 5)
+	#
+
 	def take_damage(self):
+		"""
+		removes one health from the hero
+		args: none
+		return: self.hero.health
+		"""
 		self.health += -1
 
 			#fight is being called through controller

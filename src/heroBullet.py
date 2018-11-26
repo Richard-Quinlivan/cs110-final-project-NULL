@@ -5,9 +5,14 @@ class heroBullet(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = self.image = pygame.transform.smoothscale(pygame.image.load(img).convert_alpha(),(30, 30))
 		self.rect = self.image.get_rect()
-		self.rect.centerx = x
-		self.rect.centery = y
+		self.rect.x = x
+		self.rect.y = y
 		self.speed = speed
 
 	def update(self):
-		self.rect.centerx += self.speed
+		"""
+		moves the heroBullet to the right
+		args: None
+		return: self.rect.x
+		"""
+		self.rect.x += self.speed

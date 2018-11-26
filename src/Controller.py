@@ -87,16 +87,15 @@ class Controller:
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_UP):
                         self.hero.move("up")
-                    elif(event.key == pygame.K_DOWN):
+                    if(event.key == pygame.K_DOWN):
                         self.hero.move("down")
-                    elif(event.key == pygame.K_LEFT):
+                    if(event.key == pygame.K_LEFT):
                         self.hero.move("left")
-                    elif(event.key == pygame.K_RIGHT):
+                    if(event.key == pygame.K_RIGHT):
                         self.hero.move("right")
-                    elif(event.key == pygame.K_SPACE):
-                        self.hero.fight() #NOT WRITTEN YET//shoots
-
-
+                    if(event.key == pygame.K_SPACE):
+                        self.heroBullet.add(heroBullet.heroBullet(self.hero.x, self.hero.y, 5, 'assets/herobullet.png'))
+                        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             #check for collisions with enemy
             # fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
             # if fights:
