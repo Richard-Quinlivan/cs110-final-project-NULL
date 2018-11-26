@@ -14,18 +14,15 @@ class enemy_1(pygame.sprite.Sprite):
 	def update(self):
 		"""
 		Moves the enemy to the left as the screen updates
-		Args: None
-		Return: self.rect.x
+		args: None
+		return: self.rect.x
 		"""
 		self.rect.x += self.speed
 
 	def fire(self):
 		"""
 		Has the emeny ship fire a enemyBullet
-		Args: None
-		Return: enemyBullet
+		args: None
+		return: enemyBullet
 		"""
 		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
-
-	def take_damage(self):
-		self.health += -1
