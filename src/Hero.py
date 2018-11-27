@@ -10,7 +10,7 @@ class hero(pygame.sprite.Sprite):
 		self.rect.x = x #don't need if start at origin
 		self.rect.y = y #don't need if start at origin
 		self.strength = 1
-		self.speed = 1
+		self.speed = 5
 		self.health = health
 
 	def move(self, direction):
@@ -19,13 +19,13 @@ class hero(pygame.sprite.Sprite):
 		args: direction
 		return: self.rect.x, self.rect.y
 		"""
-		if (direction.lower() == "down"):
+		if (direction.lower() == "up"):
 			self.rect.y -= self.speed
-			if (direction.lower() == "up"):
-				self.rect.y += self.speed
-			if (direction.lower() == "left"):
-				self.rect.x -= self.speed
-			if (direction.lower() == "right"):
+		if (direction.lower() == "down"):
+			self.rect.y += self.speed
+		if (direction.lower() == "left"):
+			self.rect.x -= self.speed
+		if (direction.lower() == "right"):
 				self.rect.x += self.speed
 	# def fire(self):
 	# 	"""

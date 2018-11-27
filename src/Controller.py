@@ -1,7 +1,8 @@
 import sys
 import pygame
 import random
-from src import hero
+import time
+from src import Hero
 from src import enemy_1
 from src import enemy_2
 from src import enemy_3
@@ -19,17 +20,17 @@ class Controller:
 
         """Load the sprites that we need"""
 
-        self.enemy_1 = pygame.sprite.Group()
+        self.enemies1 = pygame.sprite.Group()
         num_enemies = random.randrange(1,5)
         for i in range(num_enemies):
             y = random.randrange(80, 400)
-            self.enemy_1.add(enemy_1.enemy_1(580, 10, 3, 'assets/enemy.png' ))
+            self.enemies1.add(enemy_1.enemy_1(280, 10, 1, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
-        self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
+        # self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
         self.enemyBullet = pygame.sprite.Group()
-        self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
-        self.hero = (hero.hero("phil", 50, 80, 3, "assets/hero.png"))
-        self.all_sprites = pygame.sprite.Group(self.hero,self.enemy_1,self.enemyBullet,self.heroBullet)
+        # self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
+        self.hero = (Hero.hero("phil", 50, 80, 3, "assets/hero.png"))
+        self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
         self.state = "START"
        # self.state = "GAME"
 
@@ -78,7 +79,16 @@ class Controller:
     def gameLoop(self):
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
+        time_elapsed = 0
+        clock = pygame.time.Clock()
         while self.state == "GAME":
+            new_time = clock.tick()
+            time_elapsed += new_time
+            if time_elapsed > 5000:
+                self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy1.rect.x, self.enemy1.rect.y, 'assets/enemybullet.png', 2, "reg"))
+                self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
+
+                time_elapsed = 0
             self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -86,20 +96,20 @@ class Controller:
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_UP):
                         self.hero.move("up")
-                    if(event.key == pygame.K_DOWN):
+                    elif(event.key == pygame.K_DOWN):
                         self.hero.move("down")
-                    if(event.key == pygame.K_LEFT):
+                    elif(event.key == pygame.K_LEFT):
                         self.hero.move("left")
-                    if(event.key == pygame.K_RIGHT):
+                    elif(event.key == pygame.K_RIGHT):
                         self.hero.move("right")
-                    if(event.key == pygame.K_SPACE):
-                        self.heroBullet.add(heroBullet.heroBullet(self.hero.x, self.hero.y, 5, 'assets/herobullet.png'))
-                        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                    elif(event.key == pygame.K_SPACE):
+                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 5, 'assets/herobullet.png'))
+                        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             #check for collisions with enemy
             # fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
             # if fights:
             #     self.enemy_1.kill()
-			#
+            #
             # #check for collisions with hero
             # collide = pygame.sprite.spritecollide(self.enemyBullet, self.hero, True)
             # if collide:
