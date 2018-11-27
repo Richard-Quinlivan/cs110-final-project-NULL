@@ -2,7 +2,7 @@ import pygame
 from src import heroBullet
 
 class hero(pygame.sprite.Sprite):
-	def __init__(self, name, x, y, image):
+	def __init__(self, name, health, x, y, image):
 		pygame.sprite.Sprite.__init__(self)
 		self.name = name
 		self.image = pygame.transform.smoothscale(pygame.image.load(image).convert_alpha(),(60, 60))
@@ -11,6 +11,7 @@ class hero(pygame.sprite.Sprite):
 		self.rect.y = y #don't need if start at origin
 		self.strength = 1
 		self.speed = 1
+		self.health = health
 
 	def move(self, direction):
 		"""

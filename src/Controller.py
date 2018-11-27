@@ -28,9 +28,8 @@ class Controller:
         self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
         self.enemyBullet = pygame.sprite.Group()
         self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
-        self.hero = pygame.sprite.Group()
-        self.hero.add(hero.hero("phil", 50, 80, "assets/hero.png"))
-        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemy_1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+        self.hero = (hero.hero("phil", 50, 80, 3, "assets/hero.png"))
+        self.all_sprites = pygame.sprite.Group(self.hero,self.enemy_1,self.enemyBullet,self.heroBullet)
         self.state = "START"
        # self.state = "GAME"
 
@@ -99,20 +98,12 @@ class Controller:
             #check for collisions with enemy
             # fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
             # if fights:
-            #     for enemy_1 in fights:
-            #         if self.hero.fight(enemy_1): #if returns true or false?
-            #             self.enemy_1.take_damage()
-            #         else:
-            #             pass #if hero bullet misses, do nothing
-
-            #check for collisions with hero
+            #     self.enemy_1.kill()
+			#
+            # #check for collisions with hero
             # collide = pygame.sprite.spritecollide(self.enemyBullet, self.hero, True)
             # if collide:
-            #     for enemy_1 in collide:
-            #         if self.enemy_1.fire(hero): #?_?
-            #             self.hero.take_damage()
-            #         else:
-            #             pass #if enemy bullet misses, do nothing (if bullet passes the screen)
+            #     self.hero.health -= 1
 
             #redraw the entire screen
             self.all_sprites.update()
