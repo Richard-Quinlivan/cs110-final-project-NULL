@@ -21,7 +21,7 @@ class Controller:
         """Load the sprites that we need"""
 
         self.enemies1 = pygame.sprite.Group()
-        num_enemies = random.randrange(1,5)
+        num_enemies = random.randrange(3,5)
         for i in range(num_enemies):
             y = random.randrange(80, 400)
             x = random.randrange(550, 600)
@@ -33,7 +33,6 @@ class Controller:
         self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
         self.state = "START"
-       # self.state = "GAME"
 
     def mainLoop(self):
         while True:
@@ -107,7 +106,7 @@ class Controller:
                     elif(event.key == pygame.K_RIGHT):
                         self.hero.move("right")
                     elif(event.key == pygame.K_SPACE):
-                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 5, 'assets/herobullet.png'))
+                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 3, 'assets/herobullet.png'))
                         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             #check for collisions with enemy
             fights = pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True)
@@ -126,9 +125,9 @@ class Controller:
                 self.state = "GAMEOVER"
 
             #display the text
-            font = pygame.font.SysFont(None, 30, True)
-            hero_sur = font.render('Remaining Health:'+ str(self.hero.health), False, (250,0,0))
-            self.screen.blit(hero_sur, (10,50))
+            font = pygame.font.SysFont("arial", 18, True)
+            lives = font.render('Health: ' + str(self.hero.health), True, (250,0,0))
+            self.screen.blit(lives, (570,450))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
