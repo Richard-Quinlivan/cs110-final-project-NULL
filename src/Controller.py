@@ -24,12 +24,13 @@ class Controller:
         num_enemies = random.randrange(1,5)
         for i in range(num_enemies):
             y = random.randrange(80, 400)
-            self.enemies1.add(enemy_1.enemy_1(280, 10, 1, 'assets/enemy.png' ))
+            x = random.randrange(550, 600)
+            self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
         # self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
         self.enemyBullet = pygame.sprite.Group()
         # self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
-        self.hero = (Hero.hero("phil", 50, 80, 3, "assets/hero.png"))
+        self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
         self.state = "START"
        # self.state = "GAME"
@@ -84,11 +85,14 @@ class Controller:
         while self.state == "GAME":
             new_time = clock.tick()
             time_elapsed += new_time
-            if time_elapsed > 5000:
-                self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy1.rect.x, self.enemy1.rect.y, 'assets/enemybullet.png', 2, "reg"))
-                self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
-
-                time_elapsed = 0
+            if time_elapsed > 1000:
+                enemies = self.enemies1.sprites()
+                if len(enemies) > 1:
+                    fire = random.randrange(0, len(enemies))
+                    self.enemy_1 = enemies[fire]
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.x, self.enemy_1.rect.y, 'assets/enemybullet.png', 2, "reg"))
+                    self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
+                    time_elapsed = 0
             self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -106,25 +110,25 @@ class Controller:
                         self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 5, 'assets/herobullet.png'))
                         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             #check for collisions with enemy
-            # fights = pygame.sprite.spritecollide(self.heroBullet, self.enemy_1, True)
-            # if fights:
-            #     self.enemy_1.kill()
-            #
-            # #check for collisions with hero
-            # collide = pygame.sprite.spritecollide(self.enemyBullet, self.hero, True)
-            # if collide:
-            #     self.hero.health -= 1
+            fights = pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True)
+
+
+            #check for collisions with hero
+            collide = pygame.sprite.spritecollide(self.hero, self.enemyBullet, True) != []
+            if collide:
+                self.hero.health -= 1
+                print(self.hero.health)
 
             #redraw the entire screen
             self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
-            # if(self.hero.health == 0):
-            #     self.state = "GAMEOVER"
+            if(self.hero.health == 0):
+                self.state = "GAMEOVER"
 
             #display the text
             font = pygame.font.SysFont(None, 30, True)
-            # hero_sur = font.render('Remaining Health:'+ str(self.hero.health), False, (250,0,0))
-            # self.screen.blit(hero_sur, (10,50))
+            hero_sur = font.render('Remaining Health:'+ str(self.hero.health), False, (250,0,0))
+            self.screen.blit(hero_sur, (10,50))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
