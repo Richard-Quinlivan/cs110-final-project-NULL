@@ -16,7 +16,7 @@ Our project is a galaxy shooter type of game. One player is controlling a ship t
 
 ***    
 
-## User Interface Design - TBD
+## User Interface Design 
 1. Main Menu Screen
 
 The start screen is the first thing the user sees. There will be two options that will allow the user to either start playing the game (“Play”) or exit the game (“Quit”). 
@@ -39,7 +39,7 @@ This screen will appear when the hero ship successfully defeats all the enemies.
 This screen will appear when the hero ship is hit by an enemy bullet three times. The user be presented with the number of enemies they defeated, as well as the option to start the game over by clicking “Play Again” or exit the game by pressing “Quit”.  
 
 
-## Program Design - TBD
+## Program Design
 Pygame (https://www.pygame.org/) - A module set incorporating many common game development functions into python, developed by Pete Shinners and Pygame Community. Includes crucial graphical elements as well as a musical playback functionality.	
 Addition Libraries/Modules Used:
 -
@@ -67,11 +67,8 @@ Front-end lead conducted significant research on using pygame to create visual a
 
 The back end specialist helped with the “Model” portion of BLOCKBUSTERS by writing the major classes that would be used in the main game, as well as implementing major pygame functionality into each of them. He also made headway in major game mechanics such as the basic paddle movement and advanced functionality such as the screen-wrap function for the paddle as it approached the ends of the screen. He collaborated with the Front End Specialist in the implementation of the classes into our Controller file, as well as develop our high-score database.
 
-## Testing - TBD
-* Describe your testing strategy for your project.
-    * Example
-
-### Menu Testing - TBD
+## Testing
+### Menu Testing
 
 First, we run Controller()  and ensure the main menu opens normally, the musical score begins playing and that hovering the mouse over each button changes the color to the “highlighted” shade. Next, we click the Instructions button to ensure the INSTRUCTIONS menu opens, and the buttons are highlighted when hovered over as well. We also check to see if the music playback continues and that the sound effect is played when the button is pressed.
 
