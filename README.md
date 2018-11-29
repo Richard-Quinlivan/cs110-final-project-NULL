@@ -21,23 +21,26 @@ Our project is a galaxy shooter type of game. One player is controlling a ship t
 
 The start screen is the first thing the user sees. There will be two options that will allow the user to either start playing the game (“Play”) or exit the game (“Quit”). 
 
-<<GUI concept>>
+(Add GUI concept)
 
 
 3. Gameplay Screen
 
 This screen is where the game takes place. The enemy ships will immediately begin generating once the user presses “Start” on the Main Menu screen. The first wave of enemy ships will shoot bullets that shoot straight ahead. After thirty seconds the second wave of enemy ships will generate, shooting bullets that move up and down. After another thirty seconds, the final wave of enemy ships will generate and shoot three bullets at once, one moving up, one moving down and one moving straight ahead. If the hero ship hits the enemy with a bullet the enemy will disappear. The hero ship loses a life if it is hit by a bullet, collides with an enemy ship, or if an enemy ship reaches the opposite end of the screen without being defeated by the hero ship. If the hero ship loses three lives, the game is over; the amount of remaining lives the hero has will be displayed on the gameplay screen. If the hero ship defeats all the enemies, they have won the game. 
 
-<<GUI concept>>
+(Add GUI concept)
 
 5. Successful Game Completion Menu
 
 This screen will appear when the hero ship successfully defeats all the enemies. The words “You Win!” will be presented on the screen as well as two buttons:  “Play Again” (which will relaunch the game) and “Quit” (which will quit the game). 
 
+(Add GUI concept) 
+
 4. Game Over Menu
 
 This screen will appear when the hero ship is hit by an enemy bullet three times. The user be presented with the number of enemies they defeated, as well as the option to start the game over by clicking “Play Again” or exit the game by pressing “Quit”.  
 
+(Add GUI concept)
 
 ## Program Design
 Pygame (https://www.pygame.org/) - A module set incorporating many common game development functions into python, developed by Pete Shinners and Pygame Community. Includes crucial graphical elements as well as a musical playback functionality.	
@@ -70,20 +73,17 @@ The back end specialist helped with the “Model” portion of BLOCKBUSTERS by w
 ## Testing
 ### Menu Testing
 
-First, we run Controller()  and ensure the main menu opens normally, the musical score begins playing and that hovering the mouse over each button changes the color to the “highlighted” shade. Next, we click the Instructions button to ensure the INSTRUCTIONS menu opens, and the buttons are highlighted when hovered over as well. We also check to see if the music playback continues and that the sound effect is played when the button is pressed.
+First we will run Controller() and ensure that the Main Menu opens normally and is functional. We will click the “Start” button to make sure the actual gameplay screen opens and begins immediately generating enemies that shoot bullets. Then we will press and hold the right arrow to make sure hero ship moves in the right direction. We will repeat this process using the left arrow, the up arrow and the down arrow to make sure the hero ship moves left, up and down respectfully. Then we will press the spacebar to test to see if the hero ship expels a bullet that move straight and forward. 
 
-We then press the MAIN MENU button and return, checking that the same functionality with button hover, music and sound effects as before are present. Afterwards, we test that both of the QUIT buttons on the Main Menu and Instructions Menu properly close the game.We then test the PLAY buttons on the Instructions and Main Menu pages to make sure that the Game screen opens properly both times. We then move
+### Game Testing
 
+When testing gameplay, we have to make sure that enemies “die” or disappear when the colliding with the hero ship’s bullet. The hero ship must also lose a life each time it is shot at, when it collides with the enemy, or when the enemy exits off the opposite end of the screen. The amount of lives the hero ship has left will be indicated with a “live left” countdown visible constantly on the gameplay screen. After 30 seconds a different wave of enemies must also appear on the screen, with three waves total.  The first wave of enemies should shoot bullets that move straight, the second wave should shoot bullets that move up and down, and the third wave should shoot three bullets at once.    
 
-### Game Testing - TBD
+If the hero ship defeats all the enemies, the Successful Game Completion menu should open normally and display the words “You Win!”. Each button on the Successful Game Completion Menu should be functional, including “Play Again”, which relaunches the game, and “Quit”, which quits the game with no problems. 
 
-When the Game screen boots up , we test if spacebar starts the game and launches the ball, so we test to see if this remains true. From there, in the middle of play, we will test the single-press and holding of both the left and right arrow buttons to make sure movement works in single presses and continues to move when a key is held. We then move all the way to the left and right of the screen to see if it causes the paddle to appear on the other side - our wrap-around function.
+If the hero ship loses all three lives, the Game Over Menu should open normally and display the words “Game Over”, as well as the player’s “high score”, or the amount of enemies they defeated during gameplay. Each button on the Game Over Menu should be functional, including “Play Again”, which relaunches the game, and “Quit”, which quits the game with no problems. 
 
-From here, we conduct normal playtesting to ensure that the collisions, the speed of the ball, and the dynamic bounding and angles are all working together meaningfully and without any obvious error, especially in regards to the ball reflecting off of the corners and edges of the paddle. We also check to make sure the music plays throughout and that the destruction of a brick does in fact increase the score.
-
-We then try to reach a win state, to check if it resets the game with an increase in ball speed, without resetting the score. If successful, we then purposefully reach three consecutive fail-states, one to test each of the GAME OVER screens’ three buttons - Play Again, Main Menu, and Quit - with the same functionality as before. Finally, we check that the “X” button on the window does in fact close the window. This concludes the testing protocol.
-
-* A copy of your ATP
+Finally, we will  reopen the game to make sure the “Quit” button on the Main Menu page quits the game successfully. Finally we will click the “X”  button in the top right corner of the window to make sure the game quits properly. This concludes the testing protocol.
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
@@ -94,7 +94,7 @@ We then try to reach a win state, to check if it resets the game with an increas
 |  5  | Press UP ARROW, hold UP ARROW | The hero ship moves in the up direction without exiting the screen |          |
 |  6  | Press DOWN ARROW, hold DOWN | The hero ship moves in the down direction without exiting the screen |          |
 |  7  | Press SPACE BAR | The hero ship shoots out a bullet that shoots straight and forward |          |
-|  8  | General playtesting | 1) Enemies “die” or disappear when the hero shoots at them 2) The hero ship loses a life each time it is shot at, as indicated by the “lives left” countdown on the gameplay screen 3) If the enemy collides with the hero ship, the hero ship loses a life 4) If the enemy exits to the opposite end of the screen, the hero loses a life 5) After 30 seconds a different wave of enemies begins generating |          |
+|  8  | General playtesting | 1) Enemies “die” or disappear when the hero shoots at them 2) The hero ship loses a life each time it is shot at, as indicated by the “lives left” countdown on the gameplay screen 3) If the enemy collides with the hero ship, the hero ship loses a life 4) If the enemy exits to the opposite end of the screen, the hero loses a life 5) After 30 seconds a different wave of enemies begins generating 6) The first wave of enemies should shoot bullets that move straight, the second wave should shoot bullets that move up and down, and the third wave should shoot three bullets at once |          |
 |  9  | Successful Game Completion Menu | If the hero ship defeats all the enemies, the Successful Game Completion Menu opens normally and is functional |          |
 |  10  | Test each button on the Successful Game Completion Menu | 1) Menu displays the words “You win!” as well as a “Play Again” button and a “Quit” button 2) “Play Again”relaunches the game with no problems 3) “Quit” quits the game with no problems |          |
 |  11  | Game Over Menu |  If the hero ship loses all three lives the Game Over Menu opens normally and is functional |          |
