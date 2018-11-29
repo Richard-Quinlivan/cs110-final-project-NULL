@@ -98,9 +98,6 @@ We then try to reach a win state, to check if it resets the game with an increas
 |  9  | Successful Game Completion Menu | If the hero ship defeats all the enemies, the Successful Game Completion Menu opens normally and is functional |          |
 |  10  | Test each button on the Successful Game Completion Menu | 1) Menu displays the words “You win!” as well as a “Play Again” button and a “Quit” button 2) “Play Again”relaunches the game with no problems 3) “Quit” quits the game with no problems |          |
 |  11  | Game Over Menu |  If the hero ship loses all three lives the Game Over Menu opens normally and is functional |          |
-|  12  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 
-2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay
-3) “Play Again”relaunches the game with no problems 
-4) “Quit” quits the game with no problems |          |
+|  12  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay 3) “Play Again”relaunches the game with no problems 4) “Quit” quits the game with no problems |          |
 |  13  | Re-open game to test QUIT buttons on MAIN MENU pages | When “Quit” is pressed the game quits successfully |          |
 |  14  | Click red “X” button in top right corner of window | Game closes out properly |          |
