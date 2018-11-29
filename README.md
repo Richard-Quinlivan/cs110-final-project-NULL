@@ -24,13 +24,13 @@ The start screen is the first thing the user sees. There will be two options tha
 (Add GUI concept)
 
 
-3. Gameplay Screen
+2. Gameplay Screen
 
 This screen is where the game takes place. The enemy ships will immediately begin generating once the user presses “Start” on the Main Menu screen. The first wave of enemy ships will shoot bullets that shoot straight ahead. After thirty seconds the second wave of enemy ships will generate, shooting bullets that move up and down. After another thirty seconds, the final wave of enemy ships will generate and shoot three bullets at once, one moving up, one moving down and one moving straight ahead. If the hero ship hits the enemy with a bullet the enemy will disappear. The hero ship loses a life if it is hit by a bullet, collides with an enemy ship, or if an enemy ship reaches the opposite end of the screen without being defeated by the hero ship. If the hero ship loses three lives, the game is over; the amount of remaining lives the hero has will be displayed on the gameplay screen. If the hero ship defeats all the enemies, they have won the game. 
 
 (Add GUI concept)
 
-5. Successful Game Completion Menu
+3. Successful Game Completion Menu
 
 This screen will appear when the hero ship successfully defeats all the enemies. The words “You Win!” will be presented on the screen as well as two buttons:  “Play Again” (which will relaunch the game) and “Quit” (which will quit the game). 
 
