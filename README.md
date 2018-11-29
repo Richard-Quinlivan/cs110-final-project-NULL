@@ -1,8 +1,3 @@
-* Cover Page
-    * A cover page containing your group member names, project title, course number, and semester
-    * Github URL
-    * Project Demo Presentation as Google Slide URL
-
 # Galaxy Shooter
 ## CS 110 Final Project, Semester 1
 ### Fall 2018
@@ -17,22 +12,35 @@ https://github.com/binghamtonuniversity-cs110/final-project-fall18-null
 ***
 
 ## Project Description
-Our project is a galaxy shooter type of game. One player is controlling a ship that will start out shooting 1 beam at enemies while enemies fire back. The player must avoid the enemy shots. As time passes, enemies' difficulty level goes up and will shoot in more diverse patterns.
+Our project is a galaxy shooter type of game. One player is controlling a ship that will shoot a bullet each time they press the spacebar while enemies fire back. The player must avoid the enemy shots. As time passes, enemies' difficulty level goes up and will shoot in more diverse patterns; for example the final enemy wave will be able to shoot three bullets going in different directions at once. The goal of the game is to shoot as many enemies as possible, and at the end the player will be presented with their “high score” or the amount of enemies they defeated. The player has three lives and if they collide with the enemy’s bullet collides, the player will lose one life. The game is over when the player loses all three lives. 
 
 ***    
 
 ## User Interface Design - TBD
-* A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program.
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
-    * You should also have a screenshot of your final GUI
+1. Main Menu Screen
 
-***        
+The start screen is the first thing the user sees. There will be two options that will allow the user to either start playing the game (“Play”) or exit the game (“Quit”). 
+
+<<GUI concept>>
+
+
+3. Gameplay Screen
+
+This screen is where the game takes place. The enemy ships will immediately begin generating once the user presses “Start” on the Main Menu screen. The first wave of enemy ships will shoot bullets that shoot straight ahead. After thirty seconds the second wave of enemy ships will generate, shooting bullets that move up and down. After another thirty seconds, the final wave of enemy ships will generate and shoot three bullets at once, one moving up, one moving down and one moving straight ahead. If the hero ship hits the enemy with a bullet the enemy will disappear. The hero ship loses a life if it is hit by a bullet, collides with an enemy ship, or if an enemy ship reaches the opposite end of the screen without being defeated by the hero ship. If the hero ship loses three lives, the game is over; the amount of remaining lives the hero has will be displayed on the gameplay screen. If the hero ship defeats all the enemies, they have won the game. 
+
+<<GUI concept>>
+
+5. Successful Game Completion Menu
+
+This screen will appear when the hero ship successfully defeats all the enemies. The words “You Win!” will be presented on the screen as well as two buttons:  “Play Again” (which will relaunch the game) and “Quit” (which will quit the game). 
+
+4. Game Over Menu
+
+This screen will appear when the hero ship is hit by an enemy bullet three times. The user be presented with the number of enemies they defeated, as well as the option to start the game over by clicking “Play Again” or exit the game by pressing “Quit”.  
+
 
 ## Program Design - TBD
-* You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python.
-* For each additional module you should include
-        * url for the module documentation
-        * a short description of the module
+Pygame (https://www.pygame.org/) - A module set incorporating many common game development functions into python, developed by Pete Shinners and Pygame Community. Includes crucial graphical elements as well as a musical playback functionality.	
 Addition Libraries/Modules Used:
 -
 
