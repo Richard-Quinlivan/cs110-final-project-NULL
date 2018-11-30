@@ -88,7 +88,7 @@ Finally, we will  reopen the game to make sure the “Quit” button on the Main
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
 |  1  | Run Controller()  | Main Menu opens normally and is functional |          |
-|  2  | Click “Start” button  | When “Start” is pressed the game screen opens and enemies begin generating/shooting at enemy |                 |
+|  2  | Click “Start” button  | When “Start” is pressed the game screen opens and enemies begin generating/shooting at hero |                 |
 |  3  | Press RIGHT ARROW, hold RIGHT ARROW | The hero ship moves in the right direction without exiting the screen |         | 
 |  4  | Press LEFT ARROW, hold LEFT ARROW | The hero ship moves in the left direction without exiting the screen |          |
 |  5  | Press UP ARROW, hold UP ARROW | The hero ship moves in the up direction without exiting the screen |          |
