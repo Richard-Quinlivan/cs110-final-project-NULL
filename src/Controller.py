@@ -23,13 +23,11 @@ class Controller:
         self.enemies1 = pygame.sprite.Group()
         num_enemies = random.randrange(3,5)
         for i in range(num_enemies):
-            y = random.randrange(80, 400)
+            y = random.randrange(30, 400)
             x = random.randrange(550, 600)
             self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
-        # self.heroBullet.add(heroBullet.heroBullet(50, 50, 3, 'assets/herobullet.png'))
         self.enemyBullet = pygame.sprite.Group()
-        # self.enemyBullet.add(enemyBullet.enemyBullet(50, 50, 'assets/enemybullet.png', 2, "reg"))
         self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
         self.state = "START"
@@ -80,37 +78,59 @@ class Controller:
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
         time_elapsed = 0
+        accum = 0
         clock = pygame.time.Clock()
         while self.state == "GAME":
+            #sets the enemies to fire periodaically
             new_time = clock.tick()
             time_elapsed += new_time
+            accum += new_time
+
             if time_elapsed > 1000:
                 enemies = self.enemies1.sprites()
                 if len(enemies) > 1:
                     fire = random.randrange(0, len(enemies))
                     self.enemy_1 = enemies[fire]
-                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.x, self.enemy_1.rect.y, 'assets/enemybullet.png', 2, "reg"))
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.centerx, self.enemy_1.rect.centery, 'assets/enemybullet.png', 6, "reg"))
                     self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
                     time_elapsed = 0
+            if accum > 8000:
+                for i in range(3):
+                    y = random.randrange(30, 400)
+                    x = random.randrange(550, 600)
+                    self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
+                    self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
+
+                    accum = 0
             self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_UP):
-                        self.hero.move("up")
+                        if (self.hero.rect.y > 0):
+                            self.hero.move("up")
                     elif(event.key == pygame.K_DOWN):
-                        self.hero.move("down")
+                        if (self.hero.rect.y < 420):
+                            self.hero.move("down")
                     elif(event.key == pygame.K_LEFT):
-                        self.hero.move("left")
+                        if (self.hero.rect.x > 0):
+                            self.hero.move("left")
                     elif(event.key == pygame.K_RIGHT):
-                        self.hero.move("right")
+                        if (self.hero.rect.x < 500):
+                            self.hero.move("right")
                     elif(event.key == pygame.K_SPACE):
-                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 3, 'assets/herobullet.png'))
+                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 8, 'assets/herobullet.png'))
                         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-            #check for collisions with enemy
-            fights = pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True)
+            #limit's the hero ship movement to inside the screen
 
+            #check for collisions with enemy
+            pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True)
+            # check for collisions with emeny ships
+            ship_collide = pygame.sprite.spritecollide(self.hero, self.enemies1, True) != []
+            if ship_collide:
+                self.hero.health -= 1
+                print(self.hero.health)
 
             #check for collisions with hero
             collide = pygame.sprite.spritecollide(self.hero, self.enemyBullet, True) != []
@@ -125,9 +145,9 @@ class Controller:
                 self.state = "GAMEOVER"
 
             #display the text
-            font = pygame.font.SysFont("arial", 18, True)
+            font = pygame.font.SysFont("arial", 22, True)
             lives = font.render('Health: ' + str(self.hero.health), True, (250,0,0))
-            self.screen.blit(lives, (570,450))
+            self.screen.blit(lives, (550,450))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
