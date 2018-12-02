@@ -7,10 +7,10 @@ class hero(pygame.sprite.Sprite):
 		self.name = name
 		self.image = pygame.transform.smoothscale(pygame.image.load(image).convert_alpha(),(60, 60))
 		self.rect = self.image.get_rect()
-		self.rect.x = x #don't need if start at origin
-		self.rect.y = y #don't need if start at origin
+		self.rect.x = x 
+		self.rect.y = y 
 		self.strength = 1
-		self.speed = 5
+		self.speed = 10
 		self.health = health
 
 	def move(self, direction):

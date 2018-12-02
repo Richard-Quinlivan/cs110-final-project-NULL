@@ -1,7 +1,7 @@
 import sys
 import pygame
 import random
-import time
+import pickle
 from src import Hero
 from src import enemy_1
 from src import enemy_2
@@ -17,10 +17,15 @@ class Controller:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         pygame.font.init()
+        self.enemy1_freq = 3
+        self.enemy2_freq = 2
+        self.enemy3_freq = 1
 
         """Load the sprites that we need"""
 
         self.enemies1 = pygame.sprite.Group()
+        self.enemies2 = pygame.sprite.Group()
+        self.enemies3 = pygame.sprite.Group()
         num_enemies = random.randrange(3,5)
         for i in range(num_enemies):
             y = random.randrange(30, 400)
@@ -29,7 +34,7 @@ class Controller:
         self.heroBullet = pygame.sprite.Group()
         self.enemyBullet = pygame.sprite.Group()
         self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
-        self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
+        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
         self.state = "START"
 
     def mainLoop(self):
@@ -77,31 +82,78 @@ class Controller:
     def gameLoop(self):
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
-        time_elapsed = 0
-        accum = 0
+        time_elapsed_1 = 0
+        time_elapsed_2 = 0
+        time_elapsed_3 = 0
+        enemy1_accum = 0
+        enemy2_accum = 0
+        enemy3_accum = 0
+        enemy_time = 0
+        e1_killcount = 0
+        e2_killcount = 0
+        e3_killcount = 0
         clock = pygame.time.Clock()
+        other_clock = pygame.time.Clock()
         while self.state == "GAME":
             #sets the enemies to fire periodaically
             new_time = clock.tick()
-            time_elapsed += new_time
-            accum += new_time
-
-            if time_elapsed > 1000:
+            time_elapsed_1 += new_time
+            time_elapsed_2 += new_time
+            time_elapsed_3 += new_time
+            enemy1_accum += new_time
+            enemy2_accum += new_time
+            enemy3_accum += new_time
+            if (time_elapsed_1 > 1000):
                 enemies = self.enemies1.sprites()
-                if len(enemies) > 1:
+                if len(enemies) >= 1:
                     fire = random.randrange(0, len(enemies))
                     self.enemy_1 = enemies[fire]
                     self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.centerx, self.enemy_1.rect.centery, 'assets/enemybullet.png', 6, "reg"))
-                    self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
-                    time_elapsed = 0
-            if accum > 8000:
-                for i in range(3):
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                    time_elapsed_1 = 0
+            if (time_elapsed_2 > 1000):
+                enemies_two = self.enemies2.sprites()
+                if len(enemies_two) >= 1:
+                    fire = random.randrange(0, len(enemies_two))
+                    self.enemy_2 = enemies_two[fire]
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_2.rect.centerx, self.enemy_2.rect.centery, 'assets/enemybullet.png', 6, "reg"))
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                    time_elapsed_2 = 0
+            if (time_elapsed_3 > 3000):
+                enemies_three = self.enemies3.sprites()
+                if len(enemies_three) >= 1:
+                    fire = random.randrange(0, len(enemies_three))
+                    self.enemy_3 = enemies_three[fire]
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_3.rect.centerx, self.enemy_3.rect.centery, 'assets/enemybullet.png', 6, "up"))
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_3.rect.centerx, self.enemy_3.rect.centery, 'assets/enemybullet.png', 6, "reg"))
+                    self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_3.rect.centerx, self.enemy_3.rect.centery, 'assets/enemybullet.png', 6, "down"))
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                    time_elapsed_3 = 0
+
+            #creates new enemies periodaically
+            if enemy1_accum > 6000:
+                for i in range(self.enemy1_freq):
                     y = random.randrange(30, 400)
                     x = random.randrange(550, 600)
                     self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
-                    self.all_sprites = pygame.sprite.Group(self.hero,self.enemies1,self.enemyBullet,self.heroBullet)
-
-                    accum = 0
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                    enemy1_accum = 0
+            if (enemy2_accum >= 10000):     #change to 30000
+                enemy2_accum = 0
+                enemy_time += 1
+                for i in range(self.enemy2_freq):
+                    y = random.randrange(30, 400)
+                    x = random.randrange(550, 600)
+                    self.enemies2.add(enemy_2.enemy_2(x, y, 3, 'assets/enemy2.png' ))
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+            if (enemy3_accum >= 15000):     #change to 60000
+                enemy3_accum = 0
+                enemy_time += 1
+                for i in range(self.enemy3_freq):
+                    y = random.randrange(30, 400)
+                    x = random.randrange(550, 600)
+                    self.enemies3.add(enemy_3.enemy_3(x, y, 3, 'assets/enemy3.png' ))
+                    self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -120,28 +172,43 @@ class Controller:
                         if (self.hero.rect.x < 500):
                             self.hero.move("right")
                     elif(event.key == pygame.K_SPACE):
-                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 8, 'assets/herobullet.png'))
-                        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-            #limit's the hero ship movement to inside the screen
-
-            #check for collisions with enemy
-            pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True)
-            # check for collisions with emeny ships
-            ship_collide = pygame.sprite.spritecollide(self.hero, self.enemies1, True) != []
-            if ship_collide:
+                        self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 12, 'assets/herobullet.png'))
+                        self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+            #check for heroBullet collisions with enemy
+            if pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True):
+                e1_killcount += 1
+            if pygame.sprite.groupcollide(self.heroBullet, self.enemies2, True, True):
+                e2_killcount += 1
+            if pygame.sprite.groupcollide(self.heroBullet, self.enemies3, True, True):
+                e3_killcount += 1
+            # check for heroship collisions with emeny ships
+            ship_collide1 = pygame.sprite.spritecollide(self.hero, self.enemies1, True) != []
+            if ship_collide1:
                 self.hero.health -= 1
                 print(self.hero.health)
-
-            #check for collisions with hero
+                e1_killcount += 1
+            ship_collide2 = pygame.sprite.spritecollide(self.hero, self.enemies2, True) != []
+            if ship_collide2:
+                self.hero.health -= 1
+                print(self.hero.health)
+                e2_killcount += 1
+            ship_collide3 = pygame.sprite.spritecollide(self.hero, self.enemies3, True) != []
+            if ship_collide3:
+                self.hero.health -= 1
+                print(self.hero.health)
+                e3_killcount += 1
+            #check for enemyBullet collisions with hero
             collide = pygame.sprite.spritecollide(self.hero, self.enemyBullet, True) != []
             if collide:
                 self.hero.health -= 1
                 print(self.hero.health)
-
+             #saving killcounts into pickle file to load in game over state
+            with open('killcounts.pkl', 'wb') as f:
+                pickle.dump((e1_killcount, e2_killcount, e3_killcount), f)
             #redraw the entire screen
             self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
-            if(self.hero.health == 0):
+            if(self.hero.health <= 0):
                 self.state = "GAMEOVER"
 
             #display the text
@@ -153,9 +220,27 @@ class Controller:
 
     def gameOver(self):
         self.hero.kill()
-        myfont = pygame.font.SysFont(None, 30)
-        message = myfont.render('Game Over', False, (0,0,0))
-        self.screen.blit(message, (self.width/2,self.height/2))
+        with open('killcounts.pkl', 'rb') as f:
+            e_killcount = pickle.load(f)
+        self.screen.fill((220, 220, 220))
+        myfont = pygame.font.SysFont("arial", 50, True)
+        message = myfont.render('Game Over', False, (250,0,0))
+        self.screen.blit(message, (200,50))
+        self.end_enemies1 = pygame.sprite.Group()
+        self.end_enemies2 = pygame.sprite.Group()
+        self.end_enemies3 = pygame.sprite.Group()
+        self.end_enemies1.add(enemy_1.enemy_1(200, 145, 0, 'assets/enemy.png' ))
+        self.end_enemies2.add(enemy_2.enemy_2(200, 185, 0, 'assets/enemy2.png' ))
+        self.end_enemies3.add(enemy_3.enemy_3(200, 225, 0, 'assets/enemy3.png' ))
+        self.end_sprites = pygame.sprite.Group(self.end_enemies1, self.end_enemies2, self.end_enemies3)
+        myfont = pygame.font.SysFont("arial", 30, True)
+        message1 = myfont.render('x     ' + str(e_killcount[0]), False, (0,128,250))
+        message2 = myfont.render('x     ' + str(e_killcount[1]), False, (0,128,250))
+        message3 = myfont.render('x     ' + str(e_killcount[2]), False, (0,128,250))
+        self.screen.blit(message1, (300,160))
+        self.screen.blit(message2, (300,200))
+        self.screen.blit(message3, (300,240))
+        self.end_sprites.draw(self.screen)
         pygame.display.flip()
         while True:
             for event in pygame.event.get():
