@@ -62,17 +62,16 @@ class Controller:
             self.screen.blit(instruct1, (150,165))
             self.screen.blit(instruct2, (230,205))
             self.screen.blit(instruct3, (255,245))
-            pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #instruct
-            pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #plat
+            pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
+            pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
             font = pygame.font.SysFont("arial", 25, True)
             start_button = font.render('PLAY', True, (0,0,0))
             self.screen.blit(start_button, (490,410))
             font = pygame.font.SysFont("arial", 25, True)
-            start_button = font.render('QUIT', True, (0,0,0))
-            self.screen.blit(start_button, (100,410))
+            quit_button = font.render('QUIT', True, (0,0,0))
+            self.screen.blit(quit_button, (100,410))
             mouse = pygame.mouse.get_pos()
             click = pygame.mouse.get_pressed() #tuple postition
-            #print(click)
             if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
                 self.state = "GAME"
             if click[0] == 1 and mouse[0] in range(50,200) and mouse[1] in range(400,450):
@@ -95,6 +94,7 @@ class Controller:
         clock = pygame.time.Clock()
         other_clock = pygame.time.Clock()
         while self.state == "GAME":
+            self.background.fill((250, 250, 250)) #white
             #sets the enemies to fire periodaically
             new_time = clock.tick()
             time_elapsed_1 += new_time
@@ -154,7 +154,7 @@ class Controller:
                     x = random.randrange(550, 600)
                     self.enemies3.add(enemy_3.enemy_3(x, y, 3, 'assets/enemy3.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-            self.background.fill((250, 250, 250)) #white
+          #  self.background.fill((250, 250, 250)) #white
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -222,27 +222,43 @@ class Controller:
         self.hero.kill()
         with open('killcounts.pkl', 'rb') as f:
             e_killcount = pickle.load(f)
-        self.screen.fill((220, 220, 220))
-        myfont = pygame.font.SysFont("arial", 50, True)
-        message = myfont.render('Game Over', False, (250,0,0))
-        self.screen.blit(message, (200,50))
-        self.end_enemies1 = pygame.sprite.Group()
-        self.end_enemies2 = pygame.sprite.Group()
-        self.end_enemies3 = pygame.sprite.Group()
-        self.end_enemies1.add(enemy_1.enemy_1(200, 145, 0, 'assets/enemy.png' ))
-        self.end_enemies2.add(enemy_2.enemy_2(200, 185, 0, 'assets/enemy2.png' ))
-        self.end_enemies3.add(enemy_3.enemy_3(200, 225, 0, 'assets/enemy3.png' ))
-        self.end_sprites = pygame.sprite.Group(self.end_enemies1, self.end_enemies2, self.end_enemies3)
-        myfont = pygame.font.SysFont("arial", 30, True)
-        message1 = myfont.render('x     ' + str(e_killcount[0]), False, (0,128,250))
-        message2 = myfont.render('x     ' + str(e_killcount[1]), False, (0,128,250))
-        message3 = myfont.render('x     ' + str(e_killcount[2]), False, (0,128,250))
-        self.screen.blit(message1, (300,160))
-        self.screen.blit(message2, (300,200))
-        self.screen.blit(message3, (300,240))
-        self.end_sprites.draw(self.screen)
-        pygame.display.flip()
-        while True:
+        while self.state == "GAMEOVER":
+            self.screen.fill((220, 220, 220))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+            myfont = pygame.font.SysFont("arial", 50, True)
+            message = myfont.render('Game Over', False, (250,0,0))
+            self.screen.blit(message, (200,50))
+            self.end_enemies1 = pygame.sprite.Group()
+            self.end_enemies2 = pygame.sprite.Group()
+            self.end_enemies3 = pygame.sprite.Group()
+            self.end_enemies1.add(enemy_1.enemy_1(200, 145, 0, 'assets/enemy.png' ))
+            self.end_enemies2.add(enemy_2.enemy_2(200, 185, 0, 'assets/enemy2.png' ))
+            self.end_enemies3.add(enemy_3.enemy_3(200, 225, 0, 'assets/enemy3.png' ))
+            self.end_sprites = pygame.sprite.Group(self.end_enemies1, self.end_enemies2, self.end_enemies3)
+            myfont = pygame.font.SysFont("arial", 30, True)
+            message1 = myfont.render('x     ' + str(e_killcount[0]), False, (0,128,250))
+            message2 = myfont.render('x     ' + str(e_killcount[1]), False, (0,128,250))
+            message3 = myfont.render('x     ' + str(e_killcount[2]), False, (0,128,250))
+            self.screen.blit(message1, (300,160))
+            self.screen.blit(message2, (300,200))
+            self.screen.blit(message3, (300,240))
+            self.end_sprites.draw(self.screen)
+            pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
+            pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
+            font = pygame.font.SysFont("arial", 25, True)
+            replay_button = font.render('PLAY AGAIN', True, (0,0,0))
+            self.screen.blit(replay_button, (450,410))
+            font = pygame.font.SysFont("arial", 25, True)
+            exit_button = font.render('QUIT', True, (0,0,0))
+            self.screen.blit(exit_button, (100,410))
+            mouse = pygame.mouse.get_pos()
+            click = pygame.mouse.get_pressed() #tuple postition
+            if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
+                self.state = "START"
+                Controller.__init__(self, width=640, height=480)
+            if click[0] == 1 and mouse[0] in range(50,200) and mouse[1] in range(400,450):
+                sys.exit()
+            pygame.display.flip()
+            
