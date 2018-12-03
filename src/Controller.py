@@ -2,7 +2,7 @@ import sys
 import pygame
 import random
 import pickle
-from src import Hero
+from src import hero
 from src import enemy_1
 from src import enemy_2
 from src import enemy_3
@@ -33,7 +33,7 @@ class Controller:
             self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
         self.enemyBullet = pygame.sprite.Group()
-        self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
+        self.hero = (hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
         self.state = "START"
 
@@ -79,6 +79,7 @@ class Controller:
             pygame.display.flip()
 
     def gameLoop(self):
+        print(self.hero.rect)
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
         time_elapsed_1 = 0
@@ -103,11 +104,11 @@ class Controller:
             enemy1_accum += new_time
             enemy2_accum += new_time
             enemy3_accum += new_time
-            if (time_elapsed_1 > 1000):
-                enemies = self.enemies1.sprites()
-                if len(enemies) >= 1:
-                    fire = random.randrange(0, len(enemies))
-                    self.enemy_1 = enemies[fire]
+            if (time_elapsed_1 > 2000):
+                enemies_one = self.enemies1.sprites()
+                if len(enemies_one) >= 1:
+                    fire = random.randrange(0, len(enemies_one))
+                    self.enemy_1 = enemies_one[fire]
                     self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.centerx, self.enemy_1.rect.centery, 'assets/enemybullet.png', 6, "reg"))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     time_elapsed_1 = 0
@@ -133,8 +134,8 @@ class Controller:
             #creates new enemies periodaically
             if enemy1_accum > 6000:
                 for i in range(self.enemy1_freq):
-                    y = random.randrange(30, 400)
-                    x = random.randrange(550, 600)
+                    y = random.randrange(30, 450)
+                    x = random.randrange(550, 650)
                     self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     enemy1_accum = 0
@@ -142,16 +143,16 @@ class Controller:
                 enemy2_accum = 0
                 enemy_time += 1
                 for i in range(self.enemy2_freq):
-                    y = random.randrange(30, 400)
-                    x = random.randrange(550, 600)
+                    y = random.randrange(30, 450)
+                    x = random.randrange(550, 650)
                     self.enemies2.add(enemy_2.enemy_2(x, y, 3, 'assets/enemy2.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-            if (enemy3_accum >= 15000):     #change to 60000
-                enemy3_accum = 0
+            if (enemy3_accum >= 30000):     #change to 60000
+                enemy3_accum = 15000
                 enemy_time += 1
                 for i in range(self.enemy3_freq):
-                    y = random.randrange(30, 400)
-                    x = random.randrange(550, 600)
+                    y = random.randrange(30, 440)
+                    x = random.randrange(550, 650)
                     self.enemies3.add(enemy_3.enemy_3(x, y, 3, 'assets/enemy3.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
           #  self.background.fill((250, 250, 250)) #white
@@ -261,4 +262,3 @@ class Controller:
             if click[0] == 1 and mouse[0] in range(50,200) and mouse[1] in range(400,450):
                 sys.exit()
             pygame.display.flip()
-            

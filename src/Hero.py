@@ -6,9 +6,9 @@ class hero(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.name = name
 		self.image = pygame.transform.smoothscale(pygame.image.load(image).convert_alpha(),(60, 60))
-		self.rect = self.image.get_rect()
-		self.rect.x = x 
-		self.rect.y = y 
+		self.rect = self.image.get_rect().inflate(0,-20)
+		self.rect.x = x
+		self.rect.y = y
 		self.strength = 1
 		self.speed = 10
 		self.health = health
