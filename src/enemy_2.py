@@ -18,6 +18,6 @@ class enemy_2(pygame.sprite.Sprite):
 		args: none
 		return: None
 		"""
-		self.rect.y += self.speed * math.sin(math.radians(self.yCoord))
+		self.rect.y += self.speed * math.sin(math.radians(self.yCoord)) * 3
 		self.rect.x -= self.speed
 		self.yCoord += 10

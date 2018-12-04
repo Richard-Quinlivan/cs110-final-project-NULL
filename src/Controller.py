@@ -20,9 +20,7 @@ class Controller:
         self.enemy1_freq = 3
         self.enemy2_freq = 2
         self.enemy3_freq = 1
-
         """Load the sprites that we need"""
-
         self.enemies1 = pygame.sprite.Group()
         self.enemies2 = pygame.sprite.Group()
         self.enemies3 = pygame.sprite.Group()
@@ -52,32 +50,33 @@ class Controller:
     def startLoop(self):
         pygame.key.set_repeat(1,50)
         while self.state == "START":
-            self.screen.fill((250, 250, 250))
+            background = pygame.transform.smoothscale(pygame.image.load("assets/background_3.jpg").convert_alpha(),(640,480))
+            self.screen.blit(background, (0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
             font = pygame.font.SysFont("arial", 40, True)
-            title = font.render('Welcome to Galaxy Shooter!', True, (0,0,0))
+            title = font.render('Welcome to Galaxy Shooter!', True, (250,250,250))
             self.screen.blit(title, (100,100))
             font = pygame.font.SysFont("arial", 20, True)
-            instruct1 = font.render('Move with the UP/DOWN/LEFT/RIGHT keys', True, (0,0,0))
-            instruct2 = font.render('Shoot with SPACE', True, (0,0,0))
-            instruct3 = font.render('Press x to turn off sound', True, (0,0,0))
-            instruct4 = font.render('Press s to turn on sound', True, (0,0,0))
-            instruct5 = font.render('Good Luck!~', True, (0,0,0))
+            instruct1 = font.render('Move with the UP/DOWN/LEFT/RIGHT keys', True, (250,250,250))
+            instruct2 = font.render('Shoot with SPACE', True, (250,250,250))
+            instruct3 = font.render('Press x to turn off sound', True, (250,250,250))
+            instruct4 = font.render('Press s to turn on sound', True, (250,250,250))
+            instruct5 = font.render('Good Luck!~', True, (250,250,250))
             self.screen.blit(instruct1, (150,165))
             self.screen.blit(instruct2, (230,205))
             self.screen.blit(instruct3, (207,245))
             self.screen.blit(instruct4, (207,285))
-            self.screen.blit(instruct5, (295,325))
+            self.screen.blit(instruct5, (245,325))
             pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
             pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
-            font = pygame.font.SysFont("arial", 25, True)
+            font = pygame.font.SysFont("arial", 30, True)
             start_button = font.render('PLAY', True, (0,0,0))
-            self.screen.blit(start_button, (490,410))
-            font = pygame.font.SysFont("arial", 25, True)
+            self.screen.blit(start_button, (485,415))
+            font = pygame.font.SysFont("arial", 30, True)
             quit_button = font.render('QUIT', True, (0,0,0))
-            self.screen.blit(quit_button, (100,410))
+            self.screen.blit(quit_button, (95,415))
             mouse = pygame.mouse.get_pos()
             click = pygame.mouse.get_pressed() #tuple postition
             if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
@@ -106,7 +105,8 @@ class Controller:
         clock = pygame.time.Clock()
         other_clock = pygame.time.Clock()
         while self.state == "GAME":
-            self.background.fill((250, 250, 250)) #white
+            background = pygame.transform.smoothscale(pygame.image.load("assets/background_3.jpg").convert_alpha(),(640,480))
+            self.screen.blit(background, (0,0))
             #sets the enemies to fire periodaically
             new_time = clock.tick()
             time_elapsed_1 += new_time
@@ -180,6 +180,7 @@ class Controller:
                     enemies_three[i].kill()
             #self.background.fill((250, 250, 250)) #white
             musicPlaying = True
+            # checks the user controlled buttons
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -250,19 +251,18 @@ class Controller:
                 print(self.hero.health)
                 collision=pygame.mixer.Sound("assets/explosion.wav")
                 pygame.mixer.Sound.play(collision)
-             #saving killcounts into pickle file to load in game over state
+            #saving killcounts into pickle file to load in game over state
             with open('killcounts.pkl', 'wb') as f:
                 pickle.dump((e1_killcount, e2_killcount, e3_killcount), f)
             #redraw the entire screen
             self.all_sprites.update()
-            self.screen.blit(self.background, (0, 0))
             if(self.hero.health <= 0):
                 self.state = "GAMEOVER"
 
             #display the text
-            font = pygame.font.SysFont("arial", 22, True)
+            font = pygame.font.SysFont("arial", 30, True)
             lives = font.render('Health: ' + str(self.hero.health), True, (250,0,0))
-            self.screen.blit(lives, (550,450))
+            self.screen.blit(lives, (500,450))
             self.all_sprites.draw(self.screen)
             pygame.display.flip()
 
@@ -271,41 +271,53 @@ class Controller:
         with open('killcounts.pkl', 'rb') as f:
             e_killcount = pickle.load(f)
         while self.state == "GAMEOVER":
-            self.screen.fill((220, 220, 220))
+            background = pygame.transform.smoothscale(pygame.image.load("assets/background_3.jpg").convert_alpha(),(640,480))
+            self.screen.blit(background, (0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-            myfont = pygame.font.SysFont("arial", 50, True)
-            message = myfont.render('Game Over', False, (250,0,0))
+            #for high score check
+            score = int(e_killcount[0]) + (int(e_killcount[1] * 3)) + (int(e_killcount[2] * 5))
+            fptr = open("highscore.txt", "r")
+            highscore = fptr.readline()
+            fptr.close()
+            if score > int(highscore):
+                fptr = open("highscore.txt", "w")
+                fptr.write(str(score))
+                fptr.close()
+            myfont = pygame.font.SysFont("arial", 40, True)
+            message = myfont.render('High Score:  ' + str(highscore), False, (250,250,250))
+            self.screen.blit(message, (200,350))
+            message = myfont.render('Your Score:  ' + str(score), False, (250,250,250))
+            self.screen.blit(message, (200,300))
+            myfont = pygame.font.SysFont("arial", 40, True)
+            message = myfont.render('Game Over', False, (250,250,250))
             self.screen.blit(message, (200,50))
             self.end_enemies1 = pygame.sprite.Group()
             self.end_enemies2 = pygame.sprite.Group()
             self.end_enemies3 = pygame.sprite.Group()
-            self.end_enemies1.add(enemy_1.enemy_1(200, 145, 0, 'assets/enemy.png' ))
-            self.end_enemies2.add(enemy_2.enemy_2(200, 185, 0, 'assets/enemy2.png' ))
-            self.end_enemies3.add(enemy_3.enemy_3(200, 225, 0, 'assets/enemy3.png' ))
+            self.end_enemies1.add(enemy_1.enemy_1(100, 145, 0, 'assets/enemy.png' ))
+            self.end_enemies2.add(enemy_2.enemy_2(100, 185, 0, 'assets/enemy2.png' ))
+            self.end_enemies3.add(enemy_3.enemy_3(100, 225, 0, 'assets/enemy3.png' ))
             self.end_sprites = pygame.sprite.Group(self.end_enemies1, self.end_enemies2, self.end_enemies3)
             myfont = pygame.font.SysFont("arial", 30, True)
-            message1 = myfont.render('x     ' + str(e_killcount[0]), False, (0,128,250))
-            message2 = myfont.render('x     ' + str(e_killcount[1]), False, (0,128,250))
-            message3 = myfont.render('x     ' + str(e_killcount[2]), False, (0,128,250))
-            self.screen.blit(message1, (300,160))
-            self.screen.blit(message2, (300,200))
-            self.screen.blit(message3, (300,240))
+            message1 = myfont.render('=     ' + str(e_killcount[0]) + '    x1    =  ' + str(e_killcount[0]), False, (250,250,250))
+            message2 = myfont.render('=     ' + str(e_killcount[1]) + '    x3    =  ' + str(e_killcount[1] * 3),False, (250,250,250))
+            message3 = myfont.render('=     ' + str(e_killcount[2]) + '    x5    =  ' + str(e_killcount[2] * 5), False, (250,250,250))
+            self.screen.blit(message1, (220,160))
+            self.screen.blit(message2, (220,200))
+            self.screen.blit(message3, (220,240))
             self.end_sprites.draw(self.screen)
             pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
             pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
             font = pygame.font.SysFont("arial", 25, True)
             replay_button = font.render('PLAY AGAIN', True, (0,0,0))
-            self.screen.blit(replay_button, (450,410))
+            self.screen.blit(replay_button, (455,415))
             font = pygame.font.SysFont("arial", 25, True)
             exit_button = font.render('QUIT', True, (0,0,0))
-            self.screen.blit(exit_button, (100,410))
+            self.screen.blit(exit_button, (100,415))
             mouse = pygame.mouse.get_pos()
             click = pygame.mouse.get_pressed() #tuple postition
-            # pygame.mixer.init()
-            # over=pygame.mixer.Sound("assets/gameover.wav")
-            # pygame.mixer.Sound.play(over)
             if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
                 self.state = "START"
                 Controller.__init__(self, width=640, height=480)
