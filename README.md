@@ -61,8 +61,6 @@ enemy3- a class the defines the third and final wave of enemies. The third wave 
 ***
 
 ## Tasks and Responsibilities
-* You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
-    * Example:
 ### Software Lead - [Clare Iriarte]
 
 Worked to develop methods of testing and writing the Acceptance Test Procedure. She has also worked to update the README as the logistics of the project have been determined, and worked with the Front End Specialist and Back End Specialist on developing general concepts and ideas for the program. In addition, she implemented sound effects to the controller model to add background music fighting and video game sound effects to the program. 
@@ -100,7 +98,7 @@ We will reopen the game to make sure the “Quit” button on the Main Menu page
 |  8  | Press DOWN ARROW, hold DOWN | The hero ship moves in the down direction without exiting the screen |          |
 |  9  | Press SPACE BAR | 1) The hero ship shoots out a bullet that shoots straight and forward 2) Shooting sound effect begins playing |          |
 |  10  | General playtesting | 1) Enemies “die” or disappear when the hero shoots at them 2) The hero ship loses a life each time it is shot at, as indicated by the “lives left” countdown on the gameplay screen 3) If the enemy collides with the hero ship, the hero ship loses a life 4) If the enemy exits to the opposite end of the screen, the hero loses a life 5) After 30 seconds a different wave of enemies begins generating 6) The first wave of enemies should shoot bullets that move straight, the second wave should shoot bullets that move up and down, and the third wave should shoot three bullets at once 7) Explosion sound effect begins playing whenever the hero ship bullet collides with an enemy ship, when the hero ship and an enemy ship collides, or when a hero ship and an enemy bullet collide |          |
-|  13  | Game Over Menu | 1) When the hero ship loses all three lives the game over menu opens normally and is functional 2) A game over sound effect should begin playing normally |          |
-|  14  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay 3) “Play Again”relaunches the game with no problems 4) “Quit” quits the game with no problems |          |
-|  15  | Re-open game to test QUIT buttons on MAIN MENU pages | When “Quit” is pressed the game quits successfully |          |
-|  16  | Click red “X” button in top right corner of window | Game closes out properly |          |
+|  11  | Game Over Menu | 1) When the hero ship loses all three lives the game over menu opens normally and is functional 2) A game over sound effect should begin playing normally |          |
+|  12  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay 3) “Play Again”relaunches the game with no problems 4) “Quit” quits the game with no problems |          |
+|  13  | Re-open game to test QUIT buttons on MAIN MENU pages | When “Quit” is pressed the game quits successfully |          |
+|  14  | Click red “X” button in top right corner of window | Game closes out properly |          |
