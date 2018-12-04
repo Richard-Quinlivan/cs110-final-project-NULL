@@ -2,7 +2,7 @@ import sys
 import pygame
 import random
 import pickle
-from src import hero
+from src import Hero
 from src import enemy_1
 from src import enemy_2
 from src import enemy_3
@@ -33,7 +33,7 @@ class Controller:
             self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
         self.heroBullet = pygame.sprite.Group()
         self.enemyBullet = pygame.sprite.Group()
-        self.hero = (hero.hero("phil", 3, 80, 3, "assets/hero.png"))
+        self.hero = (Hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
         self.state = "START"
         pygame.mixer.init()
@@ -126,7 +126,7 @@ class Controller:
                     self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.centerx, self.enemy_1.rect.centery, 'assets/enemybullet.png', 6, "reg"))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     time_elapsed_1 = 0
-            if (time_elapsed_2 > 2000):
+            if (time_elapsed_2 > 3000):
                 if len(enemies_two) >= 1:
                     fire = random.randrange(0, len(enemies_two))
                     self.enemy_2 = enemies_two[fire]
@@ -150,16 +150,16 @@ class Controller:
                     self.enemies1.add(enemy_1.enemy_1(x, y, 3, 'assets/enemy.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     enemy1_accum = 0
-            if (enemy2_accum >= 10000):     #change to 30000
-                enemy2_accum = 0
+            if (enemy2_accum >= 20000):
+                enemy2_accum = 10000
                 enemy_time += 1
                 for i in range(self.enemy2_freq):
                     y = random.randrange(30, 450)
                     x = random.randrange(550, 650)
                     self.enemies2.add(enemy_2.enemy_2(x, y, 3, 'assets/enemy2.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-            if (enemy3_accum >= 30000):     #change to 60000
-                enemy3_accum = 15000
+            if (enemy3_accum >= 40000):
+                enemy3_accum = 30000
                 for i in range(self.enemy3_freq):
                     y = random.randrange(30, 440)
                     x = random.randrange(550, 650)

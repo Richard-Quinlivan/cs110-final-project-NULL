@@ -1,6 +1,5 @@
 import pygame
 from src import enemyBullet
-import math
 
 class enemy_1(pygame.sprite.Sprite):
     def __init__(self, x, y, speed, img):
@@ -18,14 +17,5 @@ class enemy_1(pygame.sprite.Sprite):
         return: self.rect.x
         """
         self.rect.x -= self.speed
-
-    def fire(self):
-        """
-        Has the emeny ship fire a enemyBullet
-        args: None
-        return: enemyBullet
-        """
-        #enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
-        enemyBullet.enemyBullet(self.rect.x, self.rect.y, 'assets/enemybullet.png', self.speed * 2, "reg")
 
 	#FIX POSITION

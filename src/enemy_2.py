@@ -21,11 +21,3 @@ class enemy_2(pygame.sprite.Sprite):
 		self.rect.y += self.speed * math.sin(math.radians(self.yCoord))
 		self.rect.x -= self.speed
 		self.yCoord += 10
-
-	def fire(self):
-		"""
-		creates the enemyBullet object
-		args: none
-		return enemyBullet
-		"""
-		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")

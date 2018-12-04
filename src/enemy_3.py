@@ -21,13 +21,3 @@ class enemy_3(pygame.sprite.Sprite):
 		self.rect.y += self.speed * math.sin(math.radians(self.yCoord))
 		self.rect.x -= self.speed
 		self.yCoord += 10
-
-	def fire(self):
-		"""
-		creates 3 enemyBullet's. 1 that goes straight, and 2 that go diagonal
-		args: none
-		return: none
-		"""
-		enemyBullet.enemyBullet(self.position, self.speed * 2, "up")
-		enemyBullet.enemyBullet(self.position, self.speed * 2, "reg")
-		enemyBullet.enemyBullet(self.position, self.speed * 2, "down")

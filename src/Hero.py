@@ -10,7 +10,7 @@ class hero(pygame.sprite.Sprite):
 		self.rect.x = x
 		self.rect.y = y
 		self.strength = 1
-		self.speed = 10
+		self.speed = 12
 		self.health = health
 
 	def move(self, direction):
@@ -27,21 +27,3 @@ class hero(pygame.sprite.Sprite):
 			self.rect.x -= self.speed
 		if (direction.lower() == "right"):
 				self.rect.x += self.speed
-	# def fire(self):
-	# 	"""
-	# 	creates a heroBullet object
-	# 	args: none
-	# 	return: heroBullet
-	# 	"""
-	# 	heroBullet.heroBullet(self.x, self.y, 5)
-	#
-
-	def take_damage(self):
-		"""
-		removes one health from the hero
-		args: none
-		return: self.hero.health
-		"""
-		self.health += -1
-
-			#fight is being called through controller
