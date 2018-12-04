@@ -87,17 +87,20 @@ Finally, we will  reopen the game to make sure the “Quit” button on the Main
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
-|  1  | Run Controller()  | Main Menu opens normally and is functional |          |
-|  2  | Click “Start” button  | When “Start” is pressed the game screen opens and enemies begin generating/shooting at hero |                 |
-|  3  | Press RIGHT ARROW, hold RIGHT ARROW | The hero ship moves in the right direction without exiting the screen |         | 
-|  4  | Press LEFT ARROW, hold LEFT ARROW | The hero ship moves in the left direction without exiting the screen |          |
-|  5  | Press UP ARROW, hold UP ARROW | The hero ship moves in the up direction without exiting the screen |          |
-|  6  | Press DOWN ARROW, hold DOWN | The hero ship moves in the down direction without exiting the screen |          |
-|  7  | Press SPACE BAR | The hero ship shoots out a bullet that shoots straight and forward |          |
-|  8  | General playtesting | 1) Enemies “die” or disappear when the hero shoots at them 2) The hero ship loses a life each time it is shot at, as indicated by the “lives left” countdown on the gameplay screen 3) If the enemy collides with the hero ship, the hero ship loses a life 4) If the enemy exits to the opposite end of the screen, the hero loses a life 5) After 30 seconds a different wave of enemies begins generating 6) The first wave of enemies should shoot bullets that move straight, the second wave should shoot bullets that move up and down, and the third wave should shoot three bullets at once |          |
-|  9  | Successful Game Completion Menu | If the hero ship defeats all the enemies, the Successful Game Completion Menu opens normally and is functional |          |
-|  10  | Test each button on the Successful Game Completion Menu | 1) Menu displays the words “You win!” as well as a “Play Again” button and a “Quit” button 2) “Play Again”relaunches the game with no problems 3) “Quit” quits the game with no problems |          |
-|  11  | Game Over Menu |  If the hero ship loses all three lives the Game Over Menu opens normally and is functional |          |
-|  12  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay 3) “Play Again”relaunches the game with no problems 4) “Quit” quits the game with no problems |          |
-|  13  | Re-open game to test QUIT buttons on MAIN MENU pages | When “Quit” is pressed the game quits successfully |          |
-|  14  | Click red “X” button in top right corner of window | Game closes out properly |          |
+|  1  | Run Controller()  | 1) Main Menu opens normally and is functional 2) Background music begins playing |          |
+|  2  | Click “Start” button  | When “Start” is pressed the game screen opens and enemies begin generating/shooting at hero |          |
+|  3  | Click “x” button | Background music stops playing |          | 
+|  4  | Click “s” button | Background music begins playing |          | 
+|  5  | Press RIGHT ARROW, hold RIGHT ARROW | The hero ship moves in the right direction without exiting the screen |         | 
+|  6  | Press LEFT ARROW, hold LEFT ARROW | The hero ship moves in the left direction without exiting the screen |          |
+|  7  | Press UP ARROW, hold UP ARROW | The hero ship moves in the up direction without exiting the screen |          |
+|  8  | Press DOWN ARROW, hold DOWN | The hero ship moves in the down direction without exiting the screen |          |
+|  9  | Press SPACE BAR | 1) The hero ship shoots out a bullet that shoots straight and forward 2) Shooting sound effect begins playing |          |
+|  10  | General playtesting | 1) Enemies “die” or disappear when the hero shoots at them 2) The hero ship loses a life each time it is shot at, as indicated by the “lives left” countdown on the gameplay screen 3) If the enemy collides with the hero ship, the hero ship loses a life 4) If the enemy exits to the opposite end of the screen, the hero loses a life 5) After 30 seconds a different wave of enemies begins generating 6) The first wave of enemies should shoot bullets that move straight, the second wave should shoot bullets that move up and down, and the third wave should shoot three bullets at once 7) Explosion sound effect begins playing whenever the hero ship bullet collides with an enemy ship, when the hero ship and an enemy ship collides, or when a hero ship and an enemy bullet collide |          |
+|  11  | Successful Game Completion Menu | 1) If the hero ship defeats all the enemies, the successful game completion menu opens normally and is functional 2) Victory music effect begins playing |          |
+|  12  | Test each button on the Successful Game Completion Menu | 1) Menu displays the words “You win!” as well as a “Play Again” button and a “Quit” button 2) “Play Again”relaunches the game with no problems 3) “Quit” quits the game with no problems |          |
+|  13  | Game Over Menu | 1) If the hero ship loses all three lives the game over menu opens normally and is functional
+2) A game over sound effect should begin playing normally |          |
+|  14  | Test each button on the Game Over Menu | 1) Menu displays the words “Game Over” as well as a “Play Again” button and a “Quit” button 2) Menu also displays the number of enemies the hero ship successfully defeated during gameplay 3) “Play Again”relaunches the game with no problems 4) “Quit” quits the game with no problems |          |
+|  15  | Re-open game to test QUIT buttons on MAIN MENU pages | When “Quit” is pressed the game quits successfully |          |
+|  16  | Click red “X” button in top right corner of window | Game closes out properly |          |
