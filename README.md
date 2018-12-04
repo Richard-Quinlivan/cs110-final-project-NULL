@@ -12,7 +12,7 @@ https://github.com/binghamtonuniversity-cs110/final-project-fall18-null
 ***
 
 ## Project Description
-Our project is a galaxy shooter type of game. One player is controlling a ship that will shoot a bullet each time they press the spacebar while enemies fire back. The player must avoid the enemy shots. As time passes, enemies' difficulty level goes up and will shoot in more diverse patterns; for example the final enemy wave will be able to shoot three bullets going in different directions at once. The goal of the game is to shoot as many enemies as possible, and at the end the player will be presented with their “high score” or the amount of enemies they defeated. The player has three lives and if they collide with the enemy’s bullet collides, the player will lose one life. The game is over when the player loses all three lives. 
+Our project is a galaxy shooter type of game. One player is controlling a ship that will shoot a bullet each time they press the spacebar while enemies fire back. The player must avoid the enemy shots. In total there will be three thirty second waves of enemy fighters, and each wave increase in difficultly; for example the final enemy wave will be able to shoot three bullets going in different directions at once. The goal of the game is to defeat all the enemies, and at the end the player will be presented with their “high score” or the amount of enemies they defeated. The player has three lives and if they collide with the enemy’s bullet collides, the player will lose one life. The game is over when the player loses all three lives. 
 
 ***    
 
