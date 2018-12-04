@@ -36,6 +36,10 @@ class Controller:
         self.hero = (hero.hero("phil", 3, 80, 3, "assets/hero.png"))
         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
         self.state = "START"
+        pygame.mixer.init()
+        sound = pygame.mixer.music.load("assets/spacemusic.wav")
+        pygame.mixer.music.play(-1,0)
+
 
     def mainLoop(self):
         while True:
@@ -58,10 +62,14 @@ class Controller:
             font = pygame.font.SysFont("arial", 20, True)
             instruct1 = font.render('Move with the UP/DOWN/LEFT/RIGHT keys', True, (0,0,0))
             instruct2 = font.render('Shoot with SPACE', True, (0,0,0))
-            instruct3 = font.render('Good Luck!~', True, (0,0,0))
+            instruct3 = font.render('Press x to turn off sound', True, (0,0,0))
+            instruct4 = font.render('Press s to turn on sound', True, (0,0,0))
+            instruct5 = font.render('Good Luck!~', True, (0,0,0))
             self.screen.blit(instruct1, (150,165))
             self.screen.blit(instruct2, (230,205))
-            self.screen.blit(instruct3, (255,245))
+            self.screen.blit(instruct3, (207,245))
+            self.screen.blit(instruct4, (207,285))
+            self.screen.blit(instruct5, (295,325))
             pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
             pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
             font = pygame.font.SysFont("arial", 25, True)
@@ -79,16 +87,19 @@ class Controller:
             pygame.display.flip()
 
     def gameLoop(self):
-        print(self.hero.rect)
         """This is the Main Loop of the Game"""
         pygame.key.set_repeat(1,50)
+        #for determining when the enemies respawn
         time_elapsed_1 = 0
         time_elapsed_2 = 0
         time_elapsed_3 = 0
+        #intermidiary variables
         enemy1_accum = 0
         enemy2_accum = 0
         enemy3_accum = 0
+        #for increacing enemy frequency
         enemy_time = 0
+        #for score tracking
         e1_killcount = 0
         e2_killcount = 0
         e3_killcount = 0
@@ -104,16 +115,18 @@ class Controller:
             enemy1_accum += new_time
             enemy2_accum += new_time
             enemy3_accum += new_time
-            if (time_elapsed_1 > 2000):
-                enemies_one = self.enemies1.sprites()
+            #groups of enemy types
+            enemies_one = self.enemies1.sprites()
+            enemies_two = self.enemies2.sprites()
+            enemies_three = self.enemies3.sprites()
+            if (time_elapsed_1 > 3000):
                 if len(enemies_one) >= 1:
                     fire = random.randrange(0, len(enemies_one))
                     self.enemy_1 = enemies_one[fire]
                     self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_1.rect.centerx, self.enemy_1.rect.centery, 'assets/enemybullet.png', 6, "reg"))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     time_elapsed_1 = 0
-            if (time_elapsed_2 > 1000):
-                enemies_two = self.enemies2.sprites()
+            if (time_elapsed_2 > 2000):
                 if len(enemies_two) >= 1:
                     fire = random.randrange(0, len(enemies_two))
                     self.enemy_2 = enemies_two[fire]
@@ -121,7 +134,6 @@ class Controller:
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     time_elapsed_2 = 0
             if (time_elapsed_3 > 3000):
-                enemies_three = self.enemies3.sprites()
                 if len(enemies_three) >= 1:
                     fire = random.randrange(0, len(enemies_three))
                     self.enemy_3 = enemies_three[fire]
@@ -130,7 +142,6 @@ class Controller:
                     self.enemyBullet.add(enemyBullet.enemyBullet(self.enemy_3.rect.centerx, self.enemy_3.rect.centery, 'assets/enemybullet.png', 6, "down"))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     time_elapsed_3 = 0
-
             #creates new enemies periodaically
             if enemy1_accum > 6000:
                 for i in range(self.enemy1_freq):
@@ -149,13 +160,26 @@ class Controller:
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             if (enemy3_accum >= 30000):     #change to 60000
                 enemy3_accum = 15000
-                enemy_time += 1
                 for i in range(self.enemy3_freq):
                     y = random.randrange(30, 440)
                     x = random.randrange(550, 650)
                     self.enemies3.add(enemy_3.enemy_3(x, y, 3, 'assets/enemy3.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
-          #  self.background.fill((250, 250, 250)) #white
+            #makes the hero lose a health if the enmies reach the other side
+            for i in range(len(enemies_one)):
+                if (enemies_one[i].rect.x < 0):
+                    self.hero.health -= 1
+                    enemies_one[i].kill()
+            for i in range(len(enemies_two)):
+                if (enemies_two[i].rect.x < 0):
+                    self.hero.health -= 1
+                    enemies_two[i].kill()
+            for i in range(len(enemies_three)):
+                if (enemies_three[i].rect.x < 0):
+                    self.hero.health -= 1
+                    enemies_three[i].kill()
+            #self.background.fill((250, 250, 250)) #white
+            musicPlaying = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -175,6 +199,21 @@ class Controller:
                     elif(event.key == pygame.K_SPACE):
                         self.heroBullet.add(heroBullet.heroBullet(self.hero.rect.x + 50, self.hero.rect.y + 20, 12, 'assets/herobullet.png'))
                         self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
+                        pygame.mixer.init()
+                        shoot=pygame.mixer.Sound("assets/shooternoise.wav")
+                        pygame.mixer.Sound.play(shoot)
+                    elif event.key == ord('x'):
+                       if musicPlaying:
+                           pygame.mixer.music.stop()
+                       else:
+                           pygame.mixer.music.play(-1, 0.0)
+                       musicPlaying = not musicPlaying
+                    elif event.key == ord('s'):
+                       if musicPlaying:
+                           pygame.mixer.music.play(-1, 0.0)
+                       else:
+                           pygame.mixer.music.stop()
+                       musicPlaying = not musicPlaying
             #check for heroBullet collisions with enemy
             if pygame.sprite.groupcollide(self.heroBullet, self.enemies1, True, True):
                 e1_killcount += 1
@@ -188,21 +227,29 @@ class Controller:
                 self.hero.health -= 1
                 print(self.hero.health)
                 e1_killcount += 1
+                collision=pygame.mixer.Sound("assets/explosion.wav")
+                pygame.mixer.Sound.play(collision)
             ship_collide2 = pygame.sprite.spritecollide(self.hero, self.enemies2, True) != []
             if ship_collide2:
                 self.hero.health -= 1
                 print(self.hero.health)
                 e2_killcount += 1
+                collision=pygame.mixer.Sound("assets/explosion.wav")
+                pygame.mixer.Sound.play(collision)
             ship_collide3 = pygame.sprite.spritecollide(self.hero, self.enemies3, True) != []
             if ship_collide3:
                 self.hero.health -= 1
                 print(self.hero.health)
                 e3_killcount += 1
+                collision=pygame.mixer.Sound("assets/explosion.wav")
+                pygame.mixer.Sound.play(collision)
             #check for enemyBullet collisions with hero
             collide = pygame.sprite.spritecollide(self.hero, self.enemyBullet, True) != []
             if collide:
                 self.hero.health -= 1
                 print(self.hero.health)
+                collision=pygame.mixer.Sound("assets/explosion.wav")
+                pygame.mixer.Sound.play(collision)
              #saving killcounts into pickle file to load in game over state
             with open('killcounts.pkl', 'wb') as f:
                 pickle.dump((e1_killcount, e2_killcount, e3_killcount), f)
@@ -256,6 +303,9 @@ class Controller:
             self.screen.blit(exit_button, (100,410))
             mouse = pygame.mouse.get_pos()
             click = pygame.mouse.get_pressed() #tuple postition
+            # pygame.mixer.init()
+            # over=pygame.mixer.Sound("assets/gameover.wav")
+            # pygame.mixer.Sound.play(over)
             if click[0] == 1 and mouse[0] in range(440,590) and mouse[1] in range(400,450):
                 self.state = "START"
                 Controller.__init__(self, width=640, height=480)
