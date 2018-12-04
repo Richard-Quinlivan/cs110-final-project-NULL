@@ -13,6 +13,6 @@ class heroBullet(pygame.sprite.Sprite):
 		"""
 		moves the heroBullet to the right
 		args: None
-		return: self.rect.x
+		return: None
 		"""
 		self.rect.x += self.speed

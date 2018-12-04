@@ -11,6 +11,11 @@ class enemyBullet(pygame.sprite.Sprite):
         self.speed = speed
 
     def update(self):
+        """
+        moves the bullet in the correct direction depending on its type
+        args: None
+        return: None
+        """
         if (self.type == "up"):
             self.rect.y += -self.speed
         if (self.type == "down"):

@@ -16,7 +16,7 @@ class enemy_2(pygame.sprite.Sprite):
 		"""
 		moves the ship in a sin curve to the left
 		args: none
-		return: self.rect.x, self.rect.y, self.yCoord
+		return: None
 		"""
 		self.rect.y += self.speed * math.sin(math.radians(self.yCoord))
 		self.rect.x -= self.speed

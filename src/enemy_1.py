@@ -14,7 +14,7 @@ class enemy_1(pygame.sprite.Sprite):
         """
         Moves the enemy to the left as the screen updates
         args: None
-        return: self.rect.x
+        return: None
         """
         self.rect.x -= self.speed
 

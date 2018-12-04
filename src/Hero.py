@@ -17,7 +17,7 @@ class hero(pygame.sprite.Sprite):
 		"""
 		allows the hero to move when keys are pressed
 		args: direction
-		return: self.rect.x, self.rect.y
+		return: None
 		"""
 		if (direction.lower() == "up"):
 			self.rect.y -= self.speed
