@@ -39,11 +39,17 @@ This screen will appear when the hero ship loses all its lives. The user be pres
 Pygame (https://www.pygame.org/) - A module set incorporating many common game development functions into python, developed by Pete Shinners and Pygame Community. Includes crucial graphical elements as well as a musical playback functionality.	
 
 Controller- a class that defines the “rules” and logic of the interlocking relationships between the other classes and UI, as well as establishes the data permanence of the high score and opening the main menu, the gameplay screen, and the game over menu. Defines how the game updates based on which key is pressed; for example how and when the hero ship moves and shoots when the user presses the arrow keys or space buttons, or whether or not the background music is playing if the user presses "x" or "s". This class also keeps track of the user's health count, the numbers of enemies that are defeated, and when each wave of enemies begins to randomly generate. 
-Hero- a class that defines the hero ship; an image of a ship that can move left, right, up and down, and takes damage or loses a life whenever it collides with a bullet. The class also defines the size and speed of the image. 
+
+Hero- a class that defines the hero ship; an image of a ship that can move left, right, up and down, and takes damage or loses a life whenever it collides with a bullet. The class also defines the size and speed of the image.
+
 herobullet- a class that defines the bullets that the hero ship is shooting out. This class also defines the size and speed of the image of the bullet, as well as its starting location relative to the hero ship. 
+
 enemyBullet- a class that defines the bullets that the enemies are shooting out; the class also defines the size and speed of the image of the bullet, as well as its starting location relative to the enemy. 
+
 enemy1- a class the defines the first wave of enemies. The first wave of enemies has two functions: to move left as the screen updates and to fire enemy bullets moving in the left direction that are faster than the enemy ship is. 
+
 enemy2- a class the defines the second wave of enemies. The second wave of enemies has two functions: to move leftward in the direction of a sin curve as screen updates and to fire enemy bullets moving in the left direction that are faster than the enemy ship is. 
+
 enemy3- a class the defines the third and final wave of enemies. The third wave of enemies has two functions: to move leftward in the direction of a sin curve as screen updates and to fire three enemy bullets. All three enemy bullets will move faster than the enemy ship, however one bullet will move leftward and straight and the other two will move leftward and diagonally. 
 
 
