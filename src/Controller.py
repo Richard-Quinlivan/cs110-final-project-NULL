@@ -150,7 +150,10 @@ class Controller:
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
                     enemy1_accum = 0
             if (enemy2_accum >= 20000):
-                enemy2_accum = 10000
+                if (enemy_time > 4):
+                    enemy2_accum = 15000
+                else:
+                    enemy2_accum = 10000
                 enemy_time += 1
                 for i in range(self.enemy2_freq):
                     y = random.randrange(30, 450)
@@ -158,7 +161,10 @@ class Controller:
                     self.enemies2.add(enemy_2.enemy_2(x, y, 3, 'assets/enemy2.png' ))
                     self.all_sprites = pygame.sprite.Group((self.hero,)+tuple(self.enemies1)+tuple(self.enemies2)+tuple(self.enemies3)+tuple(self.enemyBullet)+tuple(self.heroBullet))
             if (enemy3_accum >= 40000):
-                enemy3_accum = 30000
+                if (enemy_time > 8):
+                    enemy3_accum = 35000
+                else:
+                    enemy3_accum = 30000
                 for i in range(self.enemy3_freq):
                     y = random.randrange(30, 440)
                     x = random.randrange(550, 650)
@@ -284,6 +290,7 @@ class Controller:
                 fptr = open("highscore.txt", "w")
                 fptr.write(str(score))
                 fptr.close()
+            #display the PLayer's results
             myfont = pygame.font.SysFont("arial", 40, True)
             message = myfont.render('High Score:  ' + str(highscore), False, (250,250,250))
             self.screen.blit(message, (200,350))
@@ -294,18 +301,25 @@ class Controller:
             self.end_enemies1 = pygame.sprite.Group()
             self.end_enemies2 = pygame.sprite.Group()
             self.end_enemies3 = pygame.sprite.Group()
-            self.end_enemies1.add(enemy_1.enemy_1(100, 145, 0, 'assets/enemy.png' ))
-            self.end_enemies2.add(enemy_2.enemy_2(100, 185, 0, 'assets/enemy2.png' ))
-            self.end_enemies3.add(enemy_3.enemy_3(100, 225, 0, 'assets/enemy3.png' ))
+            self.end_enemies1.add(enemy_1.enemy_1(130, 145, 0, 'assets/enemy.png' ))
+            self.end_enemies2.add(enemy_2.enemy_2(130, 185, 0, 'assets/enemy2.png' ))
+            self.end_enemies3.add(enemy_3.enemy_3(130, 225, 0, 'assets/enemy3.png' ))
             self.end_sprites = pygame.sprite.Group(self.end_enemies1, self.end_enemies2, self.end_enemies3)
             myfont = pygame.font.SysFont("arial", 30, True)
-            message1 = myfont.render('=     ' + str(e_killcount[0]) + '    x1    =  ' + str(e_killcount[0]), False, (250,250,250))
-            message2 = myfont.render('=     ' + str(e_killcount[1]) + '    x3    =  ' + str(e_killcount[1] * 3),False, (250,250,250))
-            message3 = myfont.render('=     ' + str(e_killcount[2]) + '    x5    =  ' + str(e_killcount[2] * 5), False, (250,250,250))
+            message1 = myfont.render('=     ' + str(e_killcount[0]), False, (250,250,250))
+            message2 = myfont.render('=     ' + str(e_killcount[1]), False, (250,250,250))
+            message3 = myfont.render('=     ' + str(e_killcount[2]), False, (250,250,250))
+            message1_2 = myfont.render('x1    =  ' + str(e_killcount[0]), False, (250,250,250))
+            message2_2 = myfont.render('x3    =  ' + str(e_killcount[1]), False, (250,250,250))
+            message3_2 = myfont.render('x5    =  ' + str(e_killcount[2]), False, (250,250,250))
             self.screen.blit(message1, (220,160))
             self.screen.blit(message2, (220,200))
             self.screen.blit(message3, (220,240))
+            self.screen.blit(message1_2, (310,160))
+            self.screen.blit(message2_2, (310,200))
+            self.screen.blit(message3_2, (310,240))
             self.end_sprites.draw(self.screen)
+            #play again nad quit buttons
             pygame.draw.rect(self.screen, (80,208,255), (50,400,150,50)) #quit
             pygame.draw.rect(self.screen, (0,192,0), (440,400,150,50)) #start
             font = pygame.font.SysFont("arial", 25, True)
